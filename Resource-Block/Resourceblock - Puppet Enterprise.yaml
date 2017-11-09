@@ -1,0 +1,407 @@
+name: Puppet Enterprise
+description: ''
+hostInterface: ''
+guestInterface: Puppet Enterprise Interface
+status: Draft
+layer: Virtual Infrastructure
+refCI: sn_cfg_puppet_enterprise
+type: ''
+createdBy: admin
+icon: images/app.ngbsm/generic.svg
+instanceView: false
+instanceSharing: false
+tlr: false
+operationImplementations:
+- operation: Provision
+  resourceInterface: Puppet Enterprise Interface
+  operationType: PROVISION
+  flowDirection: BottomsUp
+  outputAttributes: ''
+  operationImplementationParameters:
+  - name: ShellScript
+    resourceInterface: Puppet Enterprise Interface
+    operation: Provision
+    mapping: ${parameter.ShellScript}
+    dataSource: Text
+    dataSourceValue: 'MASTER_IP=${parameter.WorkloadConfigProvider}; IP=$(echo $MASTER_IP
+      | cut -f3 -d/); ETC_HOSTS=/etc/hosts; HOSTNAME=puppet-master;   HOSTS_LINE="$IP
+      $HOSTNAME";    if [ -n "$(grep $HOSTS_LINE /etc/hosts)" ];    then       echo
+      "$HOSTNAME already exists";    else         echo "$HOSTS_LINE" >> /etc/hosts;       CMD="service
+      network restart"; fi;  sed -i ''/search/d'' /etc/resolv.conf;  curl -k https://puppet-master:8140/packages/current/install.bash
+      | sudo bash; CMD="export PATH=$PATH:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/puppet/lib:/opt/puppetlabs/puppet/bin/gem";  CMD="service
+      puppet start";  PUPPET_STATUS=$(service puppet status); echo "PUPPET_AGENT_STATUS
+      : $PUPPET_STATUS";'
+    resourceBlock: Puppet Enterprise
+    type: String
+    uiDataType: ''
+    mandatory: false
+    visibility: false
+    readonly: false
+    order: 1000
+    regex: ''
+    helpText: ''
+    defaultValue: ''
+    regexError: ''
+  operationSteps: []
+- operation: Discover
+  resourceInterface: Puppet Enterprise Interface
+  operationType: DISCOVER
+  flowDirection: BottomsUp
+  outputAttributes: ''
+  operationImplementationParameters:
+  - name: CfgMgmtEndpoint
+    resourceInterface: Puppet Enterprise Interface
+    operation: Discover
+    mapping: $(ci.cmdb_ci_workload_config_provider[${parameter.WorkloadConfigProvider}].url)
+    dataSource: Text
+    dataSourceValue: ''
+    resourceBlock: Puppet Enterprise
+    type: String
+    uiDataType: ''
+    mandatory: false
+    visibility: false
+    readonly: false
+    order: 1000
+    regex: ''
+    helpText: ''
+    defaultValue: ''
+    regexError: ''
+  - name: ConfigMgmtProviderInfo
+    resourceInterface: Puppet Enterprise Interface
+    operation: Discover
+    mapping: ${parameter.ConfigMgmtProviderInfo}
+    dataSource: Text
+    dataSourceValue: ''
+    resourceBlock: Puppet Enterprise
+    type: String
+    uiDataType: ''
+    mandatory: false
+    visibility: false
+    readonly: false
+    order: 1000
+    regex: ''
+    helpText: ''
+    defaultValue: ''
+    regexError: ''
+  - name: WorkloadConfigProvider
+    resourceInterface: Puppet Enterprise Interface
+    operation: Discover
+    mapping: $(ci.cmdb_ci_workload_config_provider[${parameter.WorkloadConfigProvider}].url)
+    dataSource: Text
+    dataSourceValue: ''
+    resourceBlock: Puppet Enterprise
+    type: String
+    uiDataType: ''
+    mandatory: false
+    visibility: false
+    readonly: false
+    order: 1000
+    regex: ''
+    helpText: ''
+    defaultValue: ''
+    regexError: ''
+  operationSteps:
+  - name: Configuration Management Interface.Discover.Environment
+    capiInterface: Configuration Management Interface
+    capiMethod: Discover
+    capiVersion: '1.0'
+    providerType: ''
+    condition: ''
+    order: '1'
+    ownerType: CAPI
+    provider: puppet-enterprise
+    enabled: true
+    stepParameters:
+    - name: AdditionalParameters
+      value: '{"organization":"default","entity":"environment"}'
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScript
+      value: ${parameter.ConfigScript}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigMgmtProviderInfo
+      value: ${parameter.ConfigMgmtProviderInfo}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeCredentials
+      value: ${parameter.NodeCredentials}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScriptType
+      value: ${parameter.ConfigScriptType}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeAddress
+      value: ${parameter.NodeAddress}
+      stepParamMappings: []
+      objectMapping: false
+    translators:
+    - Discover_Puppet_Environments
+    dependsOn: []
+  - name: Configuration Management Interface.Discover.Inventory
+    capiInterface: Configuration Management Interface
+    capiMethod: Discover
+    capiVersion: '1.0'
+    providerType: ''
+    condition: ''
+    order: '2'
+    ownerType: CAPI
+    provider: puppet-enterprise
+    enabled: false
+    stepParameters:
+    - name: AdditionalParameters
+      value: '{"organization":"default","entity":"inventory"}'
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScript
+      value: ${parameter.ConfigScript}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeCredentials
+      value: ${parameter.NodeCredentials}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigMgmtProviderInfo
+      value: ${parameter.ConfigMgmtProviderInfo}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScriptType
+      value: ${parameter.ConfigScriptType}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeAddress
+      value: ${parameter.NodeAddress}
+      stepParamMappings: []
+      objectMapping: false
+    translators: []
+    dependsOn: []
+  - name: Configuration Management Interface.Discover.Group
+    capiInterface: Configuration Management Interface
+    capiMethod: Discover
+    capiVersion: '1.0'
+    providerType: ''
+    condition: ''
+    order: '3'
+    ownerType: CAPI
+    provider: puppet-enterprise
+    enabled: true
+    stepParameters:
+    - name: AdditionalParameters
+      value: '{"organization":"default","entity":"group"}'
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigMgmtProviderInfo
+      value: ${parameter.ConfigMgmtProviderInfo}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScript
+      value: ${parameter.ConfigScript}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeCredentials
+      value: ${parameter.NodeCredentials}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScriptType
+      value: ${parameter.ConfigScriptType}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeAddress
+      value: ${parameter.NodeAddress}
+      stepParamMappings: []
+      objectMapping: false
+    translators:
+    - Discover_Puppet_Groups
+    dependsOn: []
+  - name: Configuration Management Interface.Discover.UnsignedCertificate
+    capiInterface: Configuration Management Interface
+    capiMethod: Discover
+    capiVersion: '1.0'
+    providerType: ''
+    condition: ''
+    order: '4'
+    ownerType: CAPI
+    provider: puppet-enterprise
+    enabled: false
+    stepParameters:
+    - name: NodeAddress
+      value: ${parameter.NodeAddress}
+      stepParamMappings: []
+      objectMapping: false
+    - name: AdditionalParameters
+      value: '{"organization":"default","entity":"unsigned_certificate"}'
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScript
+      value: ${parameter.ConfigScript}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigMgmtProviderInfo
+      value: ${parameter.ConfigMgmtProviderInfo}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeCredentials
+      value: ${parameter.NodeCredentials}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScriptType
+      value: ${parameter.ConfigScriptType}
+      stepParamMappings: []
+      objectMapping: false
+    translators: []
+    dependsOn: []
+  - name: Configuration Management Interface.Discover.Job_Modules
+    capiInterface: Configuration Management Interface
+    capiMethod: Discover
+    capiVersion: '1.0'
+    providerType: ''
+    condition: ''
+    order: '5'
+    ownerType: CAPI
+    provider: puppet-enterprise
+    enabled: false
+    stepParameters:
+    - name: NodeAddress
+      value: ${parameter.NodeAddress}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScript
+      value: ${parameter.ConfigScript}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigMgmtProviderInfo
+      value: ${parameter.ConfigMgmtProviderInfo}
+      stepParamMappings: []
+      objectMapping: false
+    - name: NodeCredentials
+      value: ${parameter.NodeCredentials}
+      stepParamMappings: []
+      objectMapping: false
+    - name: ConfigScriptType
+      value: ${parameter.ConfigScriptType}
+      stepParamMappings: []
+      objectMapping: false
+    - name: AdditionalParameters
+      value: '{"organization":"default","entity":"job_modules"}'
+      stepParamMappings: []
+      objectMapping: false
+    translators:
+    - Discover_Puppet_Config_Installables
+    dependsOn: []
+associatedScripts:
+- name: Discover_Puppet_Groups
+  intent: "function processResponse(response, cloudServiceAccountId, ldc) {\r\n\t\
+    var PuppetModelString = [];\r\n\tvar discoveryResponse =global.JSON.parse(response);\r\
+    \n\tgs.info(\"##### Rachana #### Puppet### Classification###-->\"+response);\r\
+    \n\tvar respIndex =0;\r\n\tvar tableName = \"\";\r\n\t\r\n\t//environment\r\n\t\
+    var groupResponse = discoveryResponse.groups;\r\n\tfor(respIndex= 0, group_size\
+    \ = groupResponse.length; respIndex < group_size ; respIndex++){\r\n\t\t\r\n\t\
+    \t//hosting table = Enterprise for Group\r\n\t\ttableName = \"sn_cfg_puppet_group\"\
+    ;\r\n\t\tvar hostingTable = {};\r\n\t\thostingTable.name = \"sn_cfg_puppet_enterprise\"\
+    ;\r\n\t\thostingTable.identifier = \"object_id\";\r\n\t\thostingTable.identifierValue\
+    \ = discoveryResponse.objectId;\r\n\t\t\r\n\t\tvar groupObjectId = discoveryResponse.objectId\
+    \ + \"_\"+ groupResponse[respIndex].id;\r\n\t\tvar groupTable = new BuildTableData(tableName,groupObjectId,\
+    \ hostingTable);\r\n\t\t//add attributes for the table\r\n\t\tgroupTable[tableName].attributes.name\
+    \ = groupResponse[respIndex].name;\r\n\t\tgroupTable[tableName].attributes.classes\
+    \ = groupResponse[respIndex].classes;\r\n\t\t\r\n\t\tPuppetModelString.push(groupTable);\r\
+    \n\t}\t\t\t\r\n\treturn global.JSON.stringify(PuppetModelString);\r\n}\r\n\r\n\
+    \r\nfunction BuildTableData(tableName, id, hostingTable){\r\n\tthis[tableName]\
+    \ = {};\r\n\tthis[tableName].validator = \"PuppetEnterpriseResponseValidator\"\
+    \  ;\r\n\tthis[tableName].validator_overrides = {};\r\n    this[tableName].identification\
+    \ = {};\r\n\tthis[tableName].identification [tableName] = {};\r\n    this[tableName].identification[tableName].criterion=\
+    \ {};\r\n\tthis[tableName].identification[tableName].criterion.object_id = id.toString();\r\
+    \n\t\r\n\t//attach hosting table identification\r\n\tthis[tableName].identification[hostingTable.name]\
+    \ = buildTableIdentification(hostingTable);\r\n\t\r\n\tthis[tableName].attributes\
+    \ = {};\r\n}\r\n\r\nfunction buildTableIdentification(hostingTable){\r\n\tvar\
+    \ identification = {};\r\n\tidentification[hostingTable.name] = {};\r\n\tidentification[hostingTable.name].criterion\
+    \ = {};\r\n\tidentification[hostingTable.name].criterion[hostingTable.identifier]\
+    \ = hostingTable.identifierValue;\r\n\treturn identification[hostingTable.name];\r\
+    \n}"
+  type: Response Processor
+  resourceName: Puppet Enterprise
+- name: Discover_Puppet_Config_Installables
+  intent: "function processResponse(response, cloudServiceAccountId, ldc) {\r\n\t\
+    var PuppetModelString = [];\r\n\tvar discoveryResponse = global.JSON.parse(response);\r\
+    \n\tvar respIndex =0;\r\n\tvar tableName = \"\";\r\ngs.info(\"### discovery of\
+    \ Config Installabels ###\");\r\n\tgs.info(\"## resp---> \"+response);\r\n\t//payload\
+    \ for configInstallables\r\n\tvar modulesResponse = discoveryResponse.job_modules;\r\
+    \n\tfor(respIndex = 0, job_size = modulesResponse.length; respIndex < job_size\
+    \ ; respIndex++){\r\n\t\tvar hostingTables = [];\r\n\r\n\t\t//hosting table =\
+    \ ansible_tower for configInstallables\r\n\t\tvar configInstallTable = {};\r\n\
+    \t\tconfigInstallTable.name = \"sn_cfg_puppet_enterprise\";\r\n\t\tconfigInstallTable.identifier\
+    \ = \"object_id\";\r\n\t\tconfigInstallTable.identifierValue = discoveryResponse.objectId;\r\
+    \n\t\thostingTables.push(configInstallTable);\r\n\r\n\t\ttableName = \"sn_cmp_cfg_installable\"\
+    ;\r\n\t\tvar moduleObjectId = modulesResponse[respIndex].name +\"_\"+discoveryResponse.objectId;\r\
+    \n\t\tvar configInstallableTable = new BuildTableData(tableName, moduleObjectId,\
+    \ hostingTables );\r\n\r\n\t\t//add attributes for table\r\n\t\tconfigInstallableTable[tableName].attributes.name=modulesResponse[respIndex].name;\r\
+    \n\t\tconfigInstallableTable[tableName].attributes.run_list=\"\";\r\n\r\n\t\t\
+    PuppetModelString.push(configInstallableTable);\t\r\n\r\n\t\t//payload for installableParameters\r\
+    \n\t\tvar parameters = modulesResponse[respIndex].parameters;//it is a list of\
+    \ dict's\r\n\t\tvar relationshipPayload = [];\r\n\t\tif(parameters){\r\n\t\t\t\
+    for(var index=0; index < parameters.length; index++){\r\n\t\t\t\t//hosting table\
+    \ = sn_cmp_cfg_installable for configInstallables\r\n\t\t\t\tvar installParamTable\
+    \ = {};\r\n\t\t\t\tinstallParamTable.name = \"sn_cmp_cfg_installable\";\r\n\t\t\
+    \t\tinstallParamTable.identifier = \"object_id\";\r\n\t\t\t\tinstallParamTable.identifierValue\
+    \ = moduleObjectId;\r\n\t\t\t\thostingTables.push(installParamTable);\r\n\r\n\r\
+    \n\t\t\t\tvar extraVarstableName = \"sn_cmp_cfg_installable_param\";\r\n\t\t\t\
+    \tvar extraVarsObjectId = moduleObjectId +\"_\"+parameters[index].name;\r\n\t\t\
+    \t\tvar installableParamTable = new BuildTableData(extraVarstableName, extraVarsObjectId,\
+    \ hostingTables );\r\n\r\n\t\t\t\t//add attributes for table\r\n\t\t\t\tinstallableParamTable[extraVarstableName].attributes.name\
+    \ = parameters[index].name;\r\n\t\t\t\tinstallableParamTable[extraVarstableName].attributes.value\
+    \ = parameters[index].value;\r\n\r\n\t\t\t\tPuppetModelString.push(installableParamTable);\t\
+    \r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\treturn global.JSON.stringify(PuppetModelString);\r\
+    \n}\r\n\r\n\r\nfunction BuildTableData(tableName, jobTempObjectId, hostingTables){\r\
+    \n\tthis[tableName] = {};\r\n\tthis[tableName].validator = \"PuppetEnterpriseResponseValidator\"\
+    \  ;\r\n\tthis[tableName].validator_overrides = {};\r\n\tthis[tableName].identification\
+    \ = {};\r\n\tthis[tableName].identification [tableName] = {};\r\n\tthis[tableName].identification[tableName].criterion=\
+    \ {};\r\n\tthis[tableName].identification[tableName].criterion.object_id = jobTempObjectId.toString();\r\
+    \n\r\n\tfor(var index in hostingTables){\r\n\t\t//attach hosting table identification\r\
+    \n\t\tthis[tableName].identification[hostingTables[index].name] = buildTableIdentification(hostingTables[index]);\r\
+    \n\t}\r\n\tthis[tableName].attributes = {};\r\n}\r\n\r\nfunction buildTableIdentification(hostingTable){\r\
+    \n\tvar identification = {};\r\n\tidentification[hostingTable.name] = {};\r\n\t\
+    identification[hostingTable.name].criterion = {};\r\n\tidentification[hostingTable.name].criterion[hostingTable.identifier]\
+    \ = hostingTable.identifierValue;\r\n\treturn identification[hostingTable.name];\r\
+    \n}"
+  type: Response Processor
+  resourceName: Puppet Enterprise
+- name: Discover_Puppet_Environments
+  intent: "function processResponse(response, cloudServiceAccountId, ldc) {\r\n\t\
+    var PuppetModelString = [];\r\n\tvar discoveryResponse =global.JSON.parse(response);\r\
+    \n\tgs.info(\"##### Rachana #### Puppet### Environ###-->\"+response);\r\n\tvar\
+    \ respIndex =0;\r\n\tvar tableName = \"\";\r\n\t\r\n\t//environment\r\n\tvar environmentResponse\
+    \ = discoveryResponse.environments;\r\n\tfor(respIndex= 0, environments_size =\
+    \ environmentResponse.length; respIndex <environments_size ; respIndex++){\r\n\
+    \t\t\r\n\t\t//hosting table = Enterprise for Environment\r\n\t\ttableName = \"\
+    sn_cfg_puppet_environment\";\r\n\t\tvar hostingTable = {};\r\n\t\thostingTable.name\
+    \ = \"sn_cfg_puppet_enterprise\";\r\n\t\thostingTable.identifier = \"object_id\"\
+    ;\r\n\t\thostingTable.identifierValue = discoveryResponse.objectId;\r\n\t\t\r\n\
+    \t\tvar envObjectId = discoveryResponse.objectId + \"_\"+ environmentResponse[respIndex].name;\r\
+    \n\t\tvar environmentTable = new BuildTableData(tableName,envObjectId, hostingTable);\r\
+    \n\t\t//add attributes for the table\r\n\t\tenvironmentTable[tableName].attributes.name\
+    \ = environmentResponse[respIndex].name;\r\n\t\tPuppetModelString.push(environmentTable);\r\
+    \n\t}\t\t\t\r\n\treturn global.JSON.stringify(PuppetModelString);\r\n}\r\n\r\n\
+    \r\nfunction BuildTableData(tableName, id, hostingTable){\r\n\tthis[tableName]\
+    \ = {};\r\n\tthis[tableName].validator = \"PuppetEnterpriseResponseValidator\"\
+    \  ;\r\n\tthis[tableName].validator_overrides = {};\r\n    this[tableName].identification\
+    \ = {};\r\n\tthis[tableName].identification [tableName] = {};\r\n    this[tableName].identification[tableName].criterion=\
+    \ {};\r\n\tthis[tableName].identification[tableName].criterion.object_id = id.toString();\r\
+    \n\t\r\n\t//attach hosting table identification\r\n\tthis[tableName].identification[hostingTable.name]\
+    \ = buildTableIdentification(hostingTable);\r\n\t\r\n\tthis[tableName].attributes\
+    \ = {};\r\n}\r\n\r\nfunction buildTableIdentification(hostingTable){\r\n\tvar\
+    \ identification = {};\r\n\tidentification[hostingTable.name] = {};\r\n\tidentification[hostingTable.name].criterion\
+    \ = {};\r\n\tidentification[hostingTable.name].criterion[hostingTable.identifier]\
+    \ = hostingTable.identifierValue;\r\n\treturn identification[hostingTable.name];\r\
+    \n}"
+  type: Response Processor
+  resourceName: Puppet Enterprise
+associatedGuestInterfaces:
+- resourceBlock: Puppet Enterprise
+  resourceInterface: Puppet Enterprise Interface
+  systemDefined: false
+  extendsFrom: ''
+associatedHosts: []
+endpointMappings: []
+bindings: []
+endpointRelations: []
+systemDefined: false

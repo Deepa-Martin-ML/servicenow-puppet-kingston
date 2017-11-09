@@ -1,0 +1,167 @@
+var PuppetEnterpriseJob = Class.create();
+PuppetEnterpriseJob.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+
+	initialize: function(parameters, headers) {
+		this.apiPath = "/api/jobs/";
+		this.envObj = new PuppetEnterpriseEnvironments(parameters, headers);
+		PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+		this.countJob = 0;
+	},
+
+
+	/**
+ 	* This method Discovers List of Jobs at Puppet Enterprise upon Discover operation.
+ 	* updates CMDB tables data
+ 	*/
+	discoverJobModules: function () {
+		this.logger.info("*** PUPPET JOB MODULES ***");
+		var jobModulesPayload = [];
+		this.jobResp = [];
+
+		try {
+			//Get Environments Lists
+			var environList = this.envObj.discoverEnvironments();
+			var modulesPayload = [];
+
+			//loop over each environment, to get modules
+			for(var index=0; index < environList.environments.length; index++){
+				var jobModuleUrl = "/api/classifier/environments/" +environList.environments[index].name +"/class-names";
+				var jobModuleResp = this._httpGET(jobModuleUrl);
+
+				//loop each modules to get parameters
+				for(var moduleindex=0; moduleindex < jobModuleResp.length; moduleindex++){
+					var moduleUrl = "/api/classifier/environments/"+ environList.environments[index].name +"/classes/"+ jobModuleResp[moduleindex];
+					var moduleResp = this._httpGET(moduleUrl);
+
+					var modulesData = {};
+					modulesData.name = jobModuleResp[moduleindex];
+					modulesData.parameters = moduleResp.parameters;
+
+					modulesPayload.push(modulesData);
+
+				}
+			}
+
+			ms.log("#### modulesPayload-->"+ JSON.stringify(modulesPayload));
+			var moduleData = {};
+			moduleData.job_modules = modulesPayload;
+			moduleData.objectId = this.objectId;
+
+			return moduleData;
+		} 
+		catch (exception) {
+			//duckking exception to main method
+			throw exception;
+		}
+	},
+
+
+
+	/**
+ 	* This method fires a job template at Puppet Enterprise.
+	* Inputs are from Stack variables and blueprint, which is invoked from ExecuteConfig operation.
+ 	*/
+	launchJobTemplate: function(){
+		this.logger.info("*** Launching a JobTemplate at Puppet Enterprise ***");
+		
+		try{
+			if(this.countJob <= 5){
+			ms.log("### this.CountJob-->"+this.countJob);
+			//sleep for some seconds, so that puppet agent gets connected to PCP Broker, to Run a job.
+			ms.log("### before sleep");
+			//sleep for 3 min
+			this.Thread.sleep(180000);
+			ms.log("### after sleep");
+			
+			//initialize NodeList with list of nodes if needed, else a single node on which Job has to run.
+			this.countJob ++;
+			var nodesList = [];
+			this.nodeName = this._getNodeName();
+			ms.log("### nodeName:-- "+this.nodeName.toLowerCase());
+			nodesList.push(this.nodeName.toLowerCase());
+
+			//payload for HTTP POST
+			var payload = {};
+			payload.description = this.nodeName + "_JOB";
+			payload.enforceEnvironment = false;
+			payload.environment = "";
+			payload.noop = false;
+			payload.nodes =  nodesList;
+
+			this.logger.info("--> Payload (Job creation) : "+JSON.stringify(payload));
+			var postPayload = new JSON().encode(payload);
+
+			//api to create job : "https://10.11.0.161/api/jobs/create"
+			var launchAPIPath = this.apiPath +"create";
+			ms.log("#### launchAPIPath-->"+launchAPIPath);
+
+			var jobLaunchResp = this._httpPOST(launchAPIPath, postPayload);
+
+			
+			this.logger.info(" jobLaunchResp : "+JSON.stringify(jobLaunchResp));
+
+			
+			var jobAPIPath = this.apiPath+jobLaunchResp.job ;
+			var jobResp = this.getJobStatusById(jobAPIPath);
+
+			if(jobResp.job.state.toString() == "finished") {
+				this.logger.info(" JobId: "+ jobLaunchResp.job +" Launch status : "+jobResp.job.state);
+			}
+			}
+				else {
+			//throw exception
+						throw new PuppetEnterpriseAPIException('Job Execution Failed at Puppet Enterprise with Message: ' + jobStatusLogResp.nodes[index].message,'400');
+		}
+		}
+		catch(exception){
+			//duckking exception to main method
+			throw exception;
+		}
+		
+	},
+
+
+	/**
+	 * This method gets status of a job at Puppet Enterprise.
+	 */
+	getJobStatusById: function(apiPath){
+			ms.log("### this.CountJob-->"+this.countJob);
+		//var Thread  = Packages.java.lang.Thread;
+		ms.log("##### JOB API Path---->"+apiPath);
+		var jobResp = this._httpGET(apiPath);
+		//jobResp = this._httpGET(apiPath);
+
+		if(jobResp.job.state.toString() == "finished") {
+			//pass
+		}
+		else if(jobResp.job.state.toString() == "failed") {
+			//check Job status logs , for error details
+			var jobStatusLogAPI = apiPath + "/nodes";
+			var jobStatusLogResp = this._httpGET(jobStatusLogAPI);
+
+			for(var index=0; index < jobStatusLogResp.nodes.length; index++){
+				this.logger.info("**** Error message from Job: "+jobStatusLogResp.nodes[index].message);
+				if((jobStatusLogResp.nodes[index].name == this.nodeName.toLowerCase()) && (jobStatusLogResp.nodes[index].state == "errored")){
+					var messageToBe = "Error running puppet on "+this.nodeName.toLowerCase()+": "+this.nodeName.toLowerCase()+" is not connected to the PCP broker";
+					if(jobStatusLogResp.nodes[index].message == messageToBe){
+						this.launchJobTemplate();
+					}
+					else{
+						//throw exception
+						throw new PuppetEnterpriseAPIException('Job Execution Failed at Puppet Enterprise with Message: ' + jobStatusLogResp.nodes[index].message,'400');
+					}
+				}
+			}
+		}
+		//job is in running state
+		else{
+			//sleep for 60 secs
+			this.Thread.sleep(60000);
+			jobResp = this.getJobStatusById(apiPath);
+		}
+
+		return jobResp;
+	},
+
+	type: "PuppetEnterpriseJob"
+});

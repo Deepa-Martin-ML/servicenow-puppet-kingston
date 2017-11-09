@@ -1,0 +1,7 @@
+/**
+ * A runtime custom exception that is thrown in the course of an Ansible Tower API invokation.
+ */
+var PuppetEnterpriseAPIException = Class.create();
+PuppetEnterpriseAPIException.prototype = Object.extend(new RESTAPIException(), {
+  type: 'PuppetEnterpriseAPIException'
+});

@@ -1,0 +1,6 @@
+function evaluateTemplate() {
+	
+var puppetAgentInstaller=templateResolver.getTemplate('PuppetBootstrapper',templateAttributes);
+	return puppetAgentInstaller;
+}
+evaluateTemplate();

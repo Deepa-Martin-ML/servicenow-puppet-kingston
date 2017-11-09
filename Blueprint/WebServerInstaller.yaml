@@ -1,0 +1,5063 @@
+ServiceNowCloudBlueprint:
+  status: Published
+  name: WebServerInstaller
+  category: Compute
+  deploymentModel:
+  - resource: vSphere Datacenter
+    resourceblock: ServiceNow::vSphere Datacenter
+  - resource: Virtual Server
+    resourceblock: ServiceNow::Virtual Server
+    host: vSphere Datacenter
+  operations:
+  - operation: Provision
+    operationType: PROVISION
+    resourceOperations:
+    - name: Blueprint Container Resource.Provision
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: Provision
+      parameters:
+      - name: BillingCode
+        defaultValue: ${parameter.BillingCode}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ResourceGroup
+        defaultValue: ${parameter.ResourceGroup}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: ResourceGroupName
+        defaultValue: ${parameter.ResourceGroupName}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Project
+        defaultValue: ${parameter.Project}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: EventProfile
+        defaultValue: ${parameter.EventProfile}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ScheduleTimeZone
+        defaultValue: ${parameter.ScheduleTimeZone}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: CostCenter
+        defaultValue: ${parameter.CostCenter}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: WorkloadConfigProviderType
+        defaultValue: ${parameter.WorkloadConfigProviderType}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: LeaseEndDate
+        defaultValue: ${parameter.LeaseEndDate}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Application
+        defaultValue: ${parameter.Application}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: UserGroup
+        defaultValue: ${parameter.UserGroup}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: StackName
+        defaultValue: ${parameter.StackName}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: ScheduleProfile
+        defaultValue: ${parameter.ScheduleProfile}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: CreateResourceGroup
+        defaultValue: ${parameter.CreateResourceGroup}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: WorkloadConfigProvider
+        defaultValue: ${parameter.WorkloadConfigProvider}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: StartDate
+        defaultValue: ${parameter.StartDate}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: SubscriptionId
+        defaultValue: ${parameter.SubscriptionId}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: BusinessService
+        defaultValue: ${parameter.BusinessService}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: AdditionalAPIParameters
+        defaultValue: ${parameter.AdditionalAPIParameters}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: ''
+    - name: Virtual Server.Provision
+      order: '2'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Provision
+      parameters:
+      - name: ClusterDatastore
+        defaultValue: ${parameter.Virtual_Server_ClusterDatastore}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerID
+        defaultValue: ${parameter.Virtual_Server_ServerID}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: IPAddress
+        defaultValue: ${parameter.Virtual_Server_IPAddress}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: SSHKeyName
+        defaultValue: ${parameter.Virtual_Server_SSHKeyName}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: StorageAccount
+        defaultValue: ${parameter.Virtual_Server_StorageAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: AvailabilityZone
+        defaultValue: ${parameter.Virtual_Server_AvailabilityZone}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: IPAddressPool
+        defaultValue: ${parameter.Virtual_Server_IPAddressPool}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: SubnetId
+        defaultValue: ${parameter.Virtual_Server_SubnetId}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ExternalNetwork
+        defaultValue: ${parameter.Virtual_Server_ExternalNetwork}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ExtendedAttributes
+        defaultValue: ${parameter.Virtual_Server_ExtendedAttributes}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: DNSSuffix
+        defaultValue: ${parameter.Virtual_Server_DNSSuffix}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: DiscoverAndAttachIP
+        defaultValue: ${parameter.Virtual_Server_DiscoverAndAttachIP}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ResourceGroupName
+        defaultValue: ${parameter.ResourceGroupName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CreateResourceGroup
+        defaultValue: ${parameter.CreateResourceGroup}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CustomTags
+        defaultValue: ${parameter.Virtual_Server_CustomTags}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Cluster
+        defaultValue: ${parameter.Virtual_Server_Cluster}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: PrimaryNICProfile
+        defaultValue: ${parameter.Virtual_Server_PrimaryNICProfile}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: StorageAccountType
+        defaultValue: ${parameter.Virtual_Server_StorageAccountType}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Host
+        defaultValue: ${parameter.Virtual_Server_Host}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: PrimaryNIC
+        defaultValue: ${parameter.Virtual_Server_PrimaryNIC}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ComputeFirewallName
+        defaultValue: ${parameter.Virtual_Server_ComputeFirewallName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ResourcePoolName
+        defaultValue: ${parameter.Virtual_Server_ResourcePoolName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CloudService
+        defaultValue: ${parameter.Virtual_Server_CloudService}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: PostInitScript
+        defaultValue: ${parameter.Virtual_Server_PostInitScript}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: SecurityGroupProfile
+        defaultValue: ${parameter.Virtual_Server_SecurityGroupProfile}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: OSProfile
+        defaultValue: ${parameter.Virtual_Server_OSProfile}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: StorageContainer
+        defaultValue: ${parameter.Virtual_Server_StorageContainer}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NetworkInterface
+        defaultValue: ${parameter.Virtual_Server_NetworkInterface}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeCount
+        defaultValue: ${parameter.Virtual_Server_NodeCount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: IsNATInstance
+        defaultValue: ${parameter.Virtual_Server_IsNATInstance}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ComputeProfile
+        defaultValue: ${parameter.Virtual_Server_ComputeProfile}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: VmFolderName
+        defaultValue: ${parameter.Virtual_Server_VmFolderName}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: ManagedDisk
+        defaultValue: ${parameter.Virtual_Server_ManagedDisk}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: KeyPreference
+        defaultValue: ${parameter.Virtual_Server_KeyPreference}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CustomSpecName
+        defaultValue: ${parameter.Virtual_Server_CustomSpecName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeName
+        defaultValue: ${parameter.Virtual_Server_NodeName}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Network
+        defaultValue: ${parameter.Virtual_Server_Network}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Datastore
+        defaultValue: ${parameter.Virtual_Server_Datastore}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Blueprint Container Resource.Provision
+    - name: Virtual Server.Bootstrap Node
+      order: '3'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Bootstrap Node
+      parameters:
+      - name: NodeAddress
+        defaultValue: $(Script:CMPVMUtils.getIPAddresses[arg=$(Stack.items[Virtual Server].attributes[sys_id])])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProviderType
+        defaultValue: ${parameter.WorkloadConfigProviderType}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeCredentials
+        defaultValue: $(Stack.items[Virtual Server].node_reference_credential[sn_cmp_vm_node_mgmt_creds:node].attribute[cred_id])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ManagementAttributes
+        defaultValue: ${parameter.Virtual_Server_ManagementAttributes}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: ConfigScript
+        defaultValue: $(CloudScript.scripts.PuppetAgentInstaller)
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CfgMgmtEndpoint
+        defaultValue: $(ci.cmdb_ci_workload_config_provider[${parameter.WorkloadConfigProvider}].url)
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProvider
+        defaultValue: ${parameter.WorkloadConfigProvider}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Virtual Server.Provision
+    - name: Virtual Server.Register Node
+      order: '4'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Register Node
+      parameters:
+      - name: WorkloadConfigProvider
+        defaultValue: ${parameter.WorkloadConfigProvider}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ConfigMgmtProviderInfo
+        defaultValue: ${parameter.Virtual_Server_ConfigMgmtProviderInfo}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ConfigScript
+        defaultValue: ${parameter.Virtual_Server_ConfigScript}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CfgMgmtEndpoint
+        defaultValue: $(ci.cmdb_ci_workload_config_provider[${parameter.WorkloadConfigProvider}].url)
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProviderType
+        defaultValue: ${parameter.WorkloadConfigProviderType}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ManagementAttributes
+        defaultValue: ${parameter.Virtual_Server_ManagementAttributes}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeCredentials
+        defaultValue: $(Stack.items[Virtual Server].node_reference_credential[sn_cmp_vm_node_mgmt_creds:node].attribute[cred_id])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeAddress
+        defaultValue: $(Script:CMPVMUtils.getIPAddresses[arg=$(Stack.items[Virtual Server].attributes[sys_id])])
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Virtual Server.Bootstrap Node
+    - name: Virtual Server.ExecuteConfigPackages
+      order: '5'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: ExecuteConfigPackages
+      parameters:
+      - name: NodeAddress
+        defaultValue: $(Script:CMPVMUtils.getIPAddresses[arg=$(Stack.items[Virtual Server].attributes[sys_id])])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProvider
+        defaultValue: ${parameter.WorkloadConfigProvider}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ManagementAttributes
+        defaultValue: ${parameter.Virtual_Server_ManagementAttributes}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProviderType
+        defaultValue: ${parameter.WorkloadConfigProviderType}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CfgMgmtEndpoint
+        defaultValue: $(ci.cmdb_ci_workload_config_provider[${parameter.WorkloadConfigProvider}].url)
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ConfigurationOverrides
+        defaultValue: ${parameter.Virtual_Server_ConfigurationOverrides}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: NodeCredentials
+        defaultValue: $(Stack.items[Virtual Server].node_reference_credential[sn_cmp_vm_node_mgmt_creds:node].attribute[cred_id])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ApplicationProfile
+        defaultValue: ${parameter.Virtual_Server_ApplicationProfile}
+        typeOfMap: SingleMap
+        useInOperation: true
+      depends: Virtual Server.Register Node
+    globalProperties:
+    - name: WorkloadConfigProviderType
+      opUniqueId: '2379'
+      mandatory: false
+      order: 5511
+    - name: Virtual_Server_VmFolderName
+      opUniqueId: '2601'
+      mandatory: false
+      order: 3131
+    - name: Virtual_Server_ConfigurationOverrides
+      opUniqueId: '9050'
+      mandatory: false
+      order: 8554
+    - name: CloudAccount
+      opUniqueId: '2379'
+      mandatory: true
+      order: 31
+    - name: Location
+      opUniqueId: '2379'
+      mandatory: true
+      order: 82
+    - name: ScheduleProfile
+      opUniqueId: '2379'
+      mandatory: true
+      order: 381
+    - name: CreateResourceGroup
+      opUniqueId: '2379'
+      mandatory: true
+      order: 295
+    - name: UserGroup
+      opUniqueId: '2379'
+      mandatory: true
+      order: 214
+    - name: StackName
+      opUniqueId: '2379'
+      mandatory: true
+      order: 143
+    - name: Virtual_Server_ComputeProfile
+      opUniqueId: '2601'
+      mandatory: true
+      order: 1804
+    - name: BusinessService
+      opUniqueId: '2379'
+      mandatory: false
+      order: 1171
+    - name: Virtual_Server_NodeName
+      opUniqueId: '2601'
+      mandatory: true
+      order: 1533
+    - name: Virtual_Server_ApplicationProfile
+      opUniqueId: '9050'
+      mandatory: false
+      order: 7533
+    - name: Virtual_Server_Network
+      opUniqueId: '2601'
+      mandatory: false
+      order: 3491
+    - name: Virtual_Server_OSProfile
+      opUniqueId: '2601'
+      mandatory: true
+      order: 2125
+    - name: SubscriptionId
+      opUniqueId: '2379'
+      mandatory: true
+      order: 1322
+    - name: WorkloadConfigProvider
+      opUniqueId: '2379'
+      mandatory: false
+      order: 4501
+    - name: Virtual_Server_ManagementAttributes
+      opUniqueId: '3659'
+      mandatory: false
+      order: 6522
+    - name: LeaseEndDate
+      opUniqueId: '2379'
+      mandatory: false
+      order: 477
+    - name: Application
+      opUniqueId: '2379'
+      mandatory: false
+      order: 908
+    - name: Virtual_Server_SSHKeyName
+      opUniqueId: '2601'
+      mandatory: true
+      order: 2646
+    - name: ResourceGroup
+      opUniqueId: '2379'
+      mandatory: true
+      order: 787
+    - name: ResourceGroupName
+      opUniqueId: '2379'
+      mandatory: true
+      order: 676
+    - name: ScheduleTimeZone
+      opUniqueId: '2379'
+      mandatory: true
+      order: 575
+    - name: CostCenter
+      opUniqueId: '2379'
+      mandatory: false
+      order: 1029
+    formBehaviors:
+    - aliasName: WebServerInstaller
+      catalogName: WebServerInstaller_old
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: CloudAccount
+        name: CloudAccount
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CloudAccountPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Cloud Account
+        displayOrder: 31
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Location
+        name: Location
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CloudLocationPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Location
+        displayOrder: 82
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: StackName
+        name: StackName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Stack Name
+        displayOrder: 143
+        visibility: true
+        regex: ^.{0,100}$
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: UserGroup
+        name: UserGroup
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::UserGroupPool.GroupsUserBelongsTo
+        uiDataType: Select
+        helpText: ''
+        displayName: User Group
+        displayOrder: 214
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: CreateResourceGroup
+        name: CreateResourceGroup
+        parameterTypeName: Boolean
+        defaultValue: 'Yes'
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Create Resource Group
+        displayOrder: 295
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ScheduleProfile
+        name: ScheduleProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleProfilePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Profile
+        displayOrder: 381
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: LeaseEndDate
+        name: LeaseEndDate
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: DateTime
+        helpText: ''
+        displayName: Lease End Date
+        displayOrder: 477
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: ScheduleTimeZone
+        name: ScheduleTimeZone
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleTimeZonePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Time Zone
+        displayOrder: 575
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ResourceGroupName
+        name: ResourceGroupName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Resource Group Name
+        displayOrder: 676
+        visibility: true
+        regex: ^\S+$
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ResourceGroup
+        name: ResourceGroup
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ResourceGroupPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Resource Group
+        displayOrder: 787
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Application
+        name: Application
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ApplicationPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Application
+        displayOrder: 908
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: CostCenter
+        name: CostCenter
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CostCenterPool.UserCostCenter
+        uiDataType: Select
+        helpText: ''
+        displayName: Cost Center
+        displayOrder: 1029
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: BusinessService
+        name: BusinessService
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::BusinessServicePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Business Service
+        displayOrder: 1171
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: SubscriptionId
+        name: SubscriptionId
+        parameterTypeName: String
+        defaultValue: $(context.ServiceAccountID)
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Subscription Id
+        displayOrder: 1322
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_NodeName
+        name: Virtual_Server_NodeName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Virtual Server Node Name
+        displayOrder: 1533
+        visibility: true
+        regex: ^[a-zA-Z0-9]([\w-]*[a-zA-Z0-9])?$
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_ComputeProfile
+        name: Virtual_Server_ComputeProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ComputeProfilePool.getByCAAndLDC
+        uiDataType: LookupSelect
+        helpText: ''
+        displayName: Virtual Server Compute Profile
+        displayOrder: 1804
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_OSProfile
+        name: Virtual_Server_OSProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::OSProfilePool.getByCAAndLDC
+        uiDataType: LookupSelect
+        helpText: ''
+        displayName: Virtual Server OS Profile
+        displayOrder: 2125
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_SSHKeyName
+        name: Virtual_Server_SSHKeyName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::SSHKeyPool.UserKeys
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server SSH Key Name
+        displayOrder: 2646
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_VmFolderName
+        name: Virtual_Server_VmFolderName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::VmFolderPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Vm Folder Name
+        displayOrder: 3131
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_Network
+        name: Virtual_Server_Network
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::NetworkPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Network
+        displayOrder: 3491
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: false
+      - catalogProperty: WorkloadConfigProvider
+        name: WorkloadConfigProvider
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ConfigMgmtPool.FetchWorklodCfgProviderByType
+        uiDataType: Select
+        helpText: ''
+        displayName: Workload Config Provider
+        displayOrder: 4501
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: WorkloadConfigProviderType
+        name: WorkloadConfigProviderType
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CfgMgmtProviderTypePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Workload Config Provider Type
+        displayOrder: 5511
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ManagementAttributes
+        name: Virtual_Server_ManagementAttributes
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: Config Management Attribute
+        uiDataType: Grid
+        helpText: ''
+        displayName: Virtual Server Management Attributes
+        displayOrder: 6522
+        visibility: true
+        regex: ''
+        opUniqueId: '3659'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ApplicationProfile
+        name: Virtual_Server_ApplicationProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::Application Profile Pool.all
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Application Profile
+        displayOrder: 7533
+        visibility: true
+        regex: ''
+        opUniqueId: '9050'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ConfigurationOverrides
+        name: Virtual_Server_ConfigurationOverrides
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: Configuration Override
+        uiDataType: Grid
+        helpText: ''
+        displayName: Virtual Server Configuration Overrides
+        displayOrder: 8554
+        visibility: true
+        regex: ''
+        opUniqueId: '9050'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: WebServerInstaller_old
+        type: item
+        category: Compute
+        description: <p>CMP Blueprint</p>
+        shortDescription: WebServerInstaller description...
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients:
+        - name: Default Form Load
+          type: onLoad
+          uiType: '10'
+          script: ' function onLoad() { BlueprintSCClient.prefillForm(''sn_cmp.DynamicFormAjax'',g_form.getUniqueValue(),
+            g_form);}'
+          active: true
+        variableSets:
+        - name: Provision
+          description: ''
+          title: Provision
+          layout: 2across
+          order: 1
+          variables:
+          - name: Virtual_Server_VmFolderName
+            type: '18'
+            questionText: Virtual Server Vm Folder Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 3131
+          - name: Virtual_Server_NodeName
+            type: '6'
+            questionText: Virtual Server Node Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1533
+          - name: Virtual_Server_SSHKeyName
+            type: '18'
+            questionText: Virtual Server SSH Key Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 2646
+          - name: Virtual_Server_OSProfile
+            type: '18'
+            questionText: Virtual Server OS Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 2125
+          - name: Virtual_Server_Network
+            type: '18'
+            questionText: Virtual Server Network
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 3491
+          - name: Virtual_Server_ComputeProfile
+            type: '18'
+            questionText: Virtual Server Compute Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1804
+          clientScripts:
+          - name: Validate Virtual_Server_SSHKeyName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_SSHKeyName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_SSHKeyName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"566690addbc2874074ca3a2b7c961957", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"566690addbc2874074ca3a2b7c961957", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_OSProfile
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_OSProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_OSProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"926690addbc2874074ca3a2b7c961951", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"926690addbc2874074ca3a2b7c961951", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+          - name: Validate Virtual_Server_Network
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_Network
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_Network';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"da6690addbc2874074ca3a2b7c961963", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"da6690addbc2874074ca3a2b7c961963", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ComputeProfile
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ComputeProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ComputeProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"de6690addbc2874074ca3a2b7c96194a", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"de6690addbc2874074ca3a2b7c96194a", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_NodeName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_NodeName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_NodeName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"1e6690addbc2874074ca3a2b7c961944", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"1e6690addbc2874074ca3a2b7c961944", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_VmFolderName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_VmFolderName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_VmFolderName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"1a6690addbc2874074ca3a2b7c96195d", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"1a6690addbc2874074ca3a2b7c96195d", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        - name: Register Node
+          description: ''
+          title: Register Node
+          layout: 2across
+          order: 3
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: Bootstrap Node
+          description: ''
+          title: Bootstrap Node
+          layout: 2across
+          order: 2
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: ExecuteConfigPackages
+          description: ''
+          title: ExecuteConfigPackages
+          layout: 2across
+          order: 4
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: General Info
+          description: ''
+          title: General Info
+          layout: 2across
+          order: 0
+          variables:
+          - name: UserGroup
+            type: '18'
+            questionText: User Group
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 214
+          - name: Location
+            type: '18'
+            questionText: Location
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 82
+          - name: BusinessService
+            type: '18'
+            questionText: Business Service
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 1171
+          - name: ResourceGroupName
+            type: '6'
+            questionText: Resource Group Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 676
+          - name: Virtual_Server_ApplicationProfile
+            type: '18'
+            questionText: Virtual Server Application Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 7533
+          - name: Virtual_Server_ConfigurationOverrides
+            type: '17'
+            questionText: Virtual Server Configuration Overrides
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 8554
+          - name: CloudAccount
+            type: '18'
+            questionText: Cloud Account
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 31
+          - name: ScheduleProfile
+            type: '18'
+            questionText: Schedule Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 381
+          - name: CostCenter
+            type: '18'
+            questionText: Cost Center
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 1029
+          - name: WorkloadConfigProviderType
+            type: '18'
+            questionText: Workload Config Provider Type
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 5511
+          - name: Virtual_Server_ManagementAttributes
+            type: '17'
+            questionText: Virtual Server Management Attributes
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 6522
+          - name: CreateResourceGroup
+            type: '1'
+            questionText: Create Resource Group
+            helpText: ''
+            defaultValue: 'Yes'
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 295
+          - name: StackName
+            type: '6'
+            questionText: Stack Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 143
+          - name: Application
+            type: '18'
+            questionText: Application
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 908
+          - name: ScheduleTimeZone
+            type: '18'
+            questionText: Schedule Time Zone
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 575
+          - name: SubscriptionId
+            type: '6'
+            questionText: Subscription Id
+            helpText: ''
+            defaultValue: $(context.ServiceAccountID)
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1322
+          - name: WorkloadConfigProvider
+            type: '18'
+            questionText: Workload Config Provider
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 4501
+          - name: LeaseEndDate
+            type: '10'
+            questionText: Lease End Date
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 477
+          - name: ResourceGroup
+            type: '18'
+            questionText: Resource Group
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 787
+          clientScripts:
+          - name: Validate CloudAccount
+            type: onChange
+            uiType: '10'
+            variableName: CloudAccount
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CloudAccount';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"426650addbc2874074ca3a2b7c9619e2", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"426650addbc2874074ca3a2b7c9619e2", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ScheduleProfile
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"466690addbc2874074ca3a2b7c96190d", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"466690addbc2874074ca3a2b7c96190d", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate CostCenter
+            type: onChange
+            uiType: '10'
+            variableName: CostCenter
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CostCenter';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"566690addbc2874074ca3a2b7c961932", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"566690addbc2874074ca3a2b7c961932", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate WorkloadConfigProviderType
+            type: onChange
+            uiType: '10'
+            variableName: WorkloadConfigProviderType
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'WorkloadConfigProviderType';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"626690addbc2874074ca3a2b7c961970", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"626690addbc2874074ca3a2b7c961970", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ManagementAttrib
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ManagementAttributes
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ManagementAttributes';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"666690addbc2874074ca3a2b7c961976", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"666690addbc2874074ca3a2b7c961976", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate CreateResourceGroup
+            type: onChange
+            uiType: '10'
+            variableName: CreateResourceGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CreateResourceGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"826690addbc2874074ca3a2b7c961907", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"826690addbc2874074ca3a2b7c961907", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate StackName
+            type: onChange
+            uiType: '10'
+            variableName: StackName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'StackName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"866650addbc2874074ca3a2b7c9619ee", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"866650addbc2874074ca3a2b7c9619ee", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ScheduleTimeZone
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleTimeZone
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleTimeZone';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"9a6690addbc2874074ca3a2b7c961919", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"9a6690addbc2874074ca3a2b7c961919", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate SubscriptionId
+            type: onChange
+            uiType: '10'
+            variableName: SubscriptionId
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'SubscriptionId';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"9a6690addbc2874074ca3a2b7c96193e", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"9a6690addbc2874074ca3a2b7c96193e", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Application
+            type: onChange
+            uiType: '10'
+            variableName: Application
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Application';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"926690addbc2874074ca3a2b7c96192c", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"926690addbc2874074ca3a2b7c96192c", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+          - name: Validate WorkloadConfigProvider
+            type: onChange
+            uiType: '10'
+            variableName: WorkloadConfigProvider
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'WorkloadConfigProvider';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"ae6690addbc2874074ca3a2b7c961969", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"ae6690addbc2874074ca3a2b7c961969", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ResourceGroup
+            type: onChange
+            uiType: '10'
+            variableName: ResourceGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ResourceGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"de6690addbc2874074ca3a2b7c961925", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"de6690addbc2874074ca3a2b7c961925", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate LeaseEndDate
+            type: onChange
+            uiType: '10'
+            variableName: LeaseEndDate
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'LeaseEndDate';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"d66690addbc2874074ca3a2b7c961913", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"d66690addbc2874074ca3a2b7c961913", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate UserGroup
+            type: onChange
+            uiType: '10'
+            variableName: UserGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'UserGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"026690addbc2874074ca3a2b7c961901", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"026690addbc2874074ca3a2b7c961901", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Location
+            type: onChange
+            uiType: '10'
+            variableName: Location
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Location';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"066650addbc2874074ca3a2b7c9619e8", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"066650addbc2874074ca3a2b7c9619e8", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ResourceGroupName
+            type: onChange
+            uiType: '10'
+            variableName: ResourceGroupName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ResourceGroupName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"1e6690addbc2874074ca3a2b7c96191f", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"1e6690addbc2874074ca3a2b7c96191f", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate BusinessService
+            type: onChange
+            uiType: '10'
+            variableName: BusinessService
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'BusinessService';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"1a6690addbc2874074ca3a2b7c961938", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"1a6690addbc2874074ca3a2b7c961938", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ConfigurationOve
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ConfigurationOverrides
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ConfigurationOverrides';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"2e6690addbc2874074ca3a2b7c961982", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"2e6690addbc2874074ca3a2b7c961982", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ApplicationProfi
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ApplicationProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ApplicationProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"2a6690addbc2874074ca3a2b7c96197c", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"2a6690addbc2874074ca3a2b7c96197c", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: false
+      formUIGroups:
+      - name: ExecuteConfigPackages
+        displayOrder: '4'
+      - name: Provision
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      - name: Register Node
+        displayOrder: '3'
+      - name: Bootstrap Node
+        displayOrder: '2'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules:
+        - name: Reload Location
+          order: 1300
+          sourceAttribute: CloudAccount
+          actions:
+          - name: Reload Location
+            dataSource: Reload Cloud Location
+            type: Reload
+            targetAttributeName: Location
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: TriggerChangeEvent Location
+          order: 1400
+          sourceAttribute: CloudAccount
+          actions:
+          - name: TriggerChangeEvent Location
+            type: TriggerChangeEvent
+            targetAttributeName: Location
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent UserGroup
+          order: 1500
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent UserGroup
+            type: TriggerChangeEvent
+            targetAttributeName: UserGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Quota
+          order: 1600
+          sourceAttribute: UserGroup
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Virtual_Server_Network
+          order: 2400
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server Network
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Reload Virtual_Server_OSProfile
+          order: 2500
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server OSProfile
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_OSProfile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Virtual_Server_ComputeProfile
+          order: 2600
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server ComputeProfile
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_ComputeProfile
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Reload Virtual_Server_VmFolderName
+          order: 2700
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server VmFolderName
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_VmFolderName
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+          conditions: []
+        - name: TriggerChangeEvent Virtual_Server_OSProfile
+          order: 2900
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent Virtual Server OSProfile
+            type: TriggerChangeEvent
+            targetAttributeName: Virtual_Server_OSProfile
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent Virtual_Server_ComputeProfile
+          order: 3000
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent Virtual Server ComputeProfile
+            type: TriggerChangeEvent
+            targetAttributeName: Virtual_Server_ComputeProfile
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Reload Profile
+          order: 3100
+          sourceAttribute: Virtual_Server_OSProfile
+          actions:
+          - name: Reload Reload Profile
+            dataSource: Reload Resource Profile
+            type: Reload
+            targetAttributeName: Reload Profile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Reload Profile
+          order: 3200
+          sourceAttribute: Virtual_Server_ComputeProfile
+          actions:
+          - name: Reload Reload Profile
+            dataSource: Reload Resource Profile
+            type: Reload
+            targetAttributeName: Reload Profile
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Reload WorkloadConfigProvider
+          order: 3400
+          sourceAttribute: WorkloadConfigProviderType
+          actions:
+          - name: Reload WorkloadConfigProvider
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: WorkloadConfigProvider
+            value: ''
+            order: 100
+            parameterList:
+            - key: WorkloadConfigProviderType
+              value: WorkloadConfigProviderType
+          conditions: []
+        - name: SetValueByScript Virtual_Server_ManagementAttributes
+          order: 3500
+          sourceAttribute: WorkloadConfigProvider
+          actions:
+          - name: SetValueByScript Virtual Server ManagementAttributes
+            type: SetValueByScript
+            targetAttributeName: Virtual_Server_ManagementAttributes
+            value: $(Script:CfgMgmtUtils.getManagementAttributes[arg=${parameter.WorkloadConfigProvider},arg=${parameter.WorkloadConfigProviderType}])
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: SetValueByScript Virtual_Server_ConfigurationOverrides
+          order: 3800
+          sourceAttribute: Virtual_Server_ApplicationProfile
+          actions:
+          - name: SetValueByScript Virtual Server ConfigurationOverrides
+            type: SetValueByScript
+            targetAttributeName: Virtual_Server_ConfigurationOverrides
+            value: $(Script:CfgMgmtUtils.getApplicationProfileAttribute[arg=${parameter.Virtual_Server_ApplicationProfile},arg=${parameter.WorkloadConfigProvider}])
+            order: 100
+            parameterList: []
+          conditions: []
+      - name: FormLoad
+        type: FormLoad
+        rules:
+        - name: Hide ResourceGroupName
+          order: 200
+          sourceAttribute: ''
+          actions:
+          - name: Hide ResourceGroupName
+            type: Hide
+            targetAttributeName: ResourceGroupName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Hide ResourceGroup
+          order: 300
+          sourceAttribute: ''
+          actions:
+          - name: Hide ResourceGroup
+            type: Hide
+            targetAttributeName: ResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Hide CreateResourceGroup
+          order: 400
+          sourceAttribute: ''
+          actions:
+          - name: Hide CreateResourceGroup
+            type: Hide
+            targetAttributeName: CreateResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory ResourceGroupName
+          order: 500
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory ResourceGroupName
+            type: MakeNonMandatory
+            targetAttributeName: ResourceGroupName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory ResourceGroup
+          order: 600
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory ResourceGroup
+            type: MakeNonMandatory
+            targetAttributeName: ResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory CreateResourceGroup
+          order: 700
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory CreateResourceGroup
+            type: MakeNonMandatory
+            targetAttributeName: CreateResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent CloudAccount
+          order: 800
+          sourceAttribute: ''
+          actions:
+          - name: TriggerChangeEvent CloudAccount
+            type: TriggerChangeEvent
+            targetAttributeName: CloudAccount
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload -  Quota
+          order: 900
+          sourceAttribute: ''
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Hide SubscriptionId
+          order: 1000
+          sourceAttribute: ''
+          actions:
+          - name: Hide SubscriptionId
+            type: Hide
+            targetAttributeName: SubscriptionId
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory SubscriptionId
+          order: 1100
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory SubscriptionId
+            type: MakeNonMandatory
+            targetAttributeName: SubscriptionId
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Quota
+          order: 1200
+          sourceAttribute: ''
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Show Virtual_Server_VmFolderName
+          order: 1800
+          sourceAttribute: ''
+          actions:
+          - name: Show Virtual Server VmFolderName
+            type: Show
+            targetAttributeName: Virtual_Server_VmFolderName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Show Virtual_Server_Network
+          order: 1900
+          sourceAttribute: ''
+          actions:
+          - name: Show Virtual Server Network
+            type: Show
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory Virtual_Server_Network
+          order: 2000
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory Virtual Server Network
+            type: MakeNonMandatory
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent- CloudAccount
+          order: 2100
+          sourceAttribute: ''
+          actions:
+          - name: TriggerChangeEvent CloudAccount
+            type: TriggerChangeEvent
+            targetAttributeName: CloudAccount
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+    - aliasName: WebServerInstaller [1]
+      catalogName: WebServerInstaller
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: CloudAccount
+        name: CloudAccount
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CloudAccountPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Cloud Account
+        displayOrder: 31
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Location
+        name: Location
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CloudLocationPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Location
+        displayOrder: 82
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: StackName
+        name: StackName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Stack Name
+        displayOrder: 143
+        visibility: true
+        regex: ^.{0,100}$
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: UserGroup
+        name: UserGroup
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::UserGroupPool.GroupsUserBelongsTo
+        uiDataType: Select
+        helpText: ''
+        displayName: User Group
+        displayOrder: 214
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: CreateResourceGroup
+        name: CreateResourceGroup
+        parameterTypeName: Boolean
+        defaultValue: 'Yes'
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Create Resource Group
+        displayOrder: 295
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ScheduleProfile
+        name: ScheduleProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleProfilePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Profile
+        displayOrder: 381
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: LeaseEndDate
+        name: LeaseEndDate
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: DateTime
+        helpText: ''
+        displayName: Lease End Date
+        displayOrder: 477
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: ScheduleTimeZone
+        name: ScheduleTimeZone
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleTimeZonePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Time Zone
+        displayOrder: 575
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ResourceGroupName
+        name: ResourceGroupName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Resource Group Name
+        displayOrder: 676
+        visibility: true
+        regex: ^\S+$
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ResourceGroup
+        name: ResourceGroup
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ResourceGroupPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Resource Group
+        displayOrder: 787
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Application
+        name: Application
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ApplicationPool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Application
+        displayOrder: 908
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: CostCenter
+        name: CostCenter
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CostCenterPool.UserCostCenter
+        uiDataType: Select
+        helpText: ''
+        displayName: Cost Center
+        displayOrder: 1029
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: BusinessService
+        name: BusinessService
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::BusinessServicePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Business Service
+        displayOrder: 1171
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: SubscriptionId
+        name: SubscriptionId
+        parameterTypeName: String
+        defaultValue: $(context.ServiceAccountID)
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Subscription Id
+        displayOrder: 1322
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_NodeName
+        name: Virtual_Server_NodeName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: TextBox
+        helpText: ''
+        displayName: Virtual Server Node Name
+        displayOrder: 1533
+        visibility: true
+        regex: ^[a-zA-Z0-9]([\w-]*[a-zA-Z0-9])?$
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_ComputeProfile
+        name: Virtual_Server_ComputeProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ComputeProfilePool.getByCAAndLDC
+        uiDataType: LookupSelect
+        helpText: ''
+        displayName: Virtual Server Compute Profile
+        displayOrder: 1804
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_OSProfile
+        name: Virtual_Server_OSProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::OSProfilePool.getByCAAndLDC
+        uiDataType: LookupSelect
+        helpText: ''
+        displayName: Virtual Server OS Profile
+        displayOrder: 2125
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_SSHKeyName
+        name: Virtual_Server_SSHKeyName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::SSHKeyPool.UserKeys
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server SSH Key Name
+        displayOrder: 2646
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: true
+      - catalogProperty: Virtual_Server_VmFolderName
+        name: Virtual_Server_VmFolderName
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::VmFolderPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Vm Folder Name
+        displayOrder: 3131
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_Network
+        name: Virtual_Server_Network
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::NetworkPool.getByLDC
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Network
+        displayOrder: 3491
+        visibility: true
+        regex: ''
+        opUniqueId: '2601'
+        formUIGroup: Provision
+        readonly: false
+        mandatory: false
+      - catalogProperty: WorkloadConfigProvider
+        name: WorkloadConfigProvider
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ConfigMgmtPool.FetchWorklodCfgProviderByType
+        uiDataType: Select
+        helpText: ''
+        displayName: Workload Config Provider
+        displayOrder: 4501
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: WorkloadConfigProviderType
+        name: WorkloadConfigProviderType
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::CfgMgmtProviderTypePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Workload Config Provider Type
+        displayOrder: 5511
+        visibility: true
+        regex: ''
+        opUniqueId: '2379'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ManagementAttributes
+        name: Virtual_Server_ManagementAttributes
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: Config Management Attribute
+        uiDataType: Grid
+        helpText: ''
+        displayName: Virtual Server Management Attributes
+        displayOrder: 6522
+        visibility: true
+        regex: ''
+        opUniqueId: '3659'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ApplicationProfile
+        name: Virtual_Server_ApplicationProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::Application Profile Pool.all
+        uiDataType: Select
+        helpText: ''
+        displayName: Virtual Server Application Profile
+        displayOrder: 7533
+        visibility: true
+        regex: ''
+        opUniqueId: '9050'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      - catalogProperty: Virtual_Server_ConfigurationOverrides
+        name: Virtual_Server_ConfigurationOverrides
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: Configuration Override
+        uiDataType: Grid
+        helpText: ''
+        displayName: Virtual Server Configuration Overrides
+        displayOrder: 8554
+        visibility: true
+        regex: ''
+        opUniqueId: '9050'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: WebServerInstaller
+        type: item
+        category: Compute
+        description: <p>CMP Blueprint</p>
+        shortDescription: WebServerInstaller description...
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients:
+        - name: Default Form Load
+          type: onLoad
+          uiType: '10'
+          script: ' function onLoad() { BlueprintSCClient.prefillForm(''sn_cmp.DynamicFormAjax'',g_form.getUniqueValue(),
+            g_form);}'
+          active: true
+        variableSets:
+        - name: General Info
+          description: ''
+          title: General Info
+          layout: 2across
+          order: 0
+          variables:
+          - name: Virtual_Server_ManagementAttributes
+            type: '17'
+            questionText: Virtual Server Management Attributes
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 6522
+          - name: WorkloadConfigProviderType
+            type: '18'
+            questionText: Workload Config Provider Type
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 5511
+          - name: Location
+            type: '18'
+            questionText: Location
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 82
+          - name: LeaseEndDate
+            type: '10'
+            questionText: Lease End Date
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 477
+          - name: ResourceGroup
+            type: '18'
+            questionText: Resource Group
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 787
+          - name: BusinessService
+            type: '18'
+            questionText: Business Service
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 1171
+          - name: WorkloadConfigProvider
+            type: '18'
+            questionText: Workload Config Provider
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 4501
+          - name: CloudAccount
+            type: '18'
+            questionText: Cloud Account
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 31
+          - name: UserGroup
+            type: '18'
+            questionText: User Group
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 214
+          - name: SubscriptionId
+            type: '6'
+            questionText: Subscription Id
+            helpText: ''
+            defaultValue: $(context.ServiceAccountID)
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1322
+          - name: ResourceGroupName
+            type: '6'
+            questionText: Resource Group Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 676
+          - name: CostCenter
+            type: '18'
+            questionText: Cost Center
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 1029
+          - name: StackName
+            type: '6'
+            questionText: Stack Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 143
+          - name: ScheduleProfile
+            type: '18'
+            questionText: Schedule Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 381
+          - name: Virtual_Server_ApplicationProfile
+            type: '18'
+            questionText: Virtual Server Application Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 7533
+          - name: Virtual_Server_ConfigurationOverrides
+            type: '17'
+            questionText: Virtual Server Configuration Overrides
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 8554
+          - name: ScheduleTimeZone
+            type: '18'
+            questionText: Schedule Time Zone
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 575
+          - name: CreateResourceGroup
+            type: '1'
+            questionText: Create Resource Group
+            helpText: ''
+            defaultValue: 'Yes'
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 295
+          - name: Application
+            type: '18'
+            questionText: Application
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 908
+          clientScripts:
+          - name: Validate WorkloadConfigProvider
+            type: onChange
+            uiType: '10'
+            variableName: WorkloadConfigProvider
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'WorkloadConfigProvider';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"49b0bac3dbce0b4012687d668c961955", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"49b0bac3dbce0b4012687d668c961955", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate UserGroup
+            type: onChange
+            uiType: '10'
+            variableName: UserGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'UserGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"6cb07ac3dbce0b4012687d668c9619d3", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"6cb07ac3dbce0b4012687d668c9619d3", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate CloudAccount
+            type: onChange
+            uiType: '10'
+            variableName: CloudAccount
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CloudAccount';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"64b07ac3dbce0b4012687d668c9619c1", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"64b07ac3dbce0b4012687d668c9619c1", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ResourceGroupName
+            type: onChange
+            uiType: '10'
+            variableName: ResourceGroupName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ResourceGroupName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"78b07ac3dbce0b4012687d668c9619f2", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"78b07ac3dbce0b4012687d668c9619f2", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate CostCenter
+            type: onChange
+            uiType: '10'
+            variableName: CostCenter
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CostCenter';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"78b0bac3dbce0b4012687d668c961911", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"78b0bac3dbce0b4012687d668c961911", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate SubscriptionId
+            type: onChange
+            uiType: '10'
+            variableName: SubscriptionId
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'SubscriptionId';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"74b0bac3dbce0b4012687d668c96192a", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"74b0bac3dbce0b4012687d668c96192a", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate StackName
+            type: onChange
+            uiType: '10'
+            variableName: StackName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'StackName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"a8b07ac3dbce0b4012687d668c9619cd", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"a8b07ac3dbce0b4012687d668c9619cd", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ScheduleProfile
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"b0b07ac3dbce0b4012687d668c9619e0", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"b0b07ac3dbce0b4012687d668c9619e0", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Application
+            type: onChange
+            uiType: '10'
+            variableName: Application
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Application';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"fcb07ac3dbce0b4012687d668c9619fe", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"fcb07ac3dbce0b4012687d668c9619fe", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ApplicationProfi
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ApplicationProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ApplicationProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"c1b0bac3dbce0b4012687d668c961968", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"c1b0bac3dbce0b4012687d668c961968", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ConfigurationOve
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ConfigurationOverrides
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ConfigurationOverrides';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"c5b0bac3dbce0b4012687d668c96196e", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"c5b0bac3dbce0b4012687d668c96196e", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate CreateResourceGroup
+            type: onChange
+            uiType: '10'
+            variableName: CreateResourceGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'CreateResourceGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"fcb07ac3dbce0b4012687d668c9619d9", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"fcb07ac3dbce0b4012687d668c9619d9", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate BusinessService
+            type: onChange
+            uiType: '10'
+            variableName: BusinessService
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'BusinessService';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"3cb0bac3dbce0b4012687d668c961917", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"3cb0bac3dbce0b4012687d668c961917", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ScheduleTimeZone
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleTimeZone
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleTimeZone';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"f4b07ac3dbce0b4012687d668c9619ec", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"f4b07ac3dbce0b4012687d668c9619ec", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate WorkloadConfigProviderType
+            type: onChange
+            uiType: '10'
+            variableName: WorkloadConfigProviderType
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'WorkloadConfigProviderType';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"0db0bac3dbce0b4012687d668c96195b", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"0db0bac3dbce0b4012687d668c96195b", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ManagementAttrib
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ManagementAttributes
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ManagementAttributes';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"01b0bac3dbce0b4012687d668c961962", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"01b0bac3dbce0b4012687d668c961962", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+          - name: Validate Location
+            type: onChange
+            uiType: '10'
+            variableName: Location
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Location';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"28b07ac3dbce0b4012687d668c9619c7", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"28b07ac3dbce0b4012687d668c9619c7", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ResourceGroup
+            type: onChange
+            uiType: '10'
+            variableName: ResourceGroup
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ResourceGroup';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"3cb07ac3dbce0b4012687d668c9619f8", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"3cb07ac3dbce0b4012687d668c9619f8", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate LeaseEndDate
+            type: onChange
+            uiType: '10'
+            variableName: LeaseEndDate
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'LeaseEndDate';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"34b07ac3dbce0b4012687d668c9619e6", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"34b07ac3dbce0b4012687d668c9619e6", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        - name: Bootstrap Node
+          description: ''
+          title: Bootstrap Node
+          layout: 2across
+          order: 2
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: Register Node
+          description: ''
+          title: Register Node
+          layout: 2across
+          order: 3
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: ExecuteConfigPackages
+          description: ''
+          title: ExecuteConfigPackages
+          layout: 2across
+          order: 4
+          variables: []
+          clientScripts:
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+        - name: Provision
+          description: ''
+          title: Provision
+          layout: 2across
+          order: 1
+          variables:
+          - name: Virtual_Server_SSHKeyName
+            type: '18'
+            questionText: Virtual Server SSH Key Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 2646
+          - name: Virtual_Server_OSProfile
+            type: '18'
+            questionText: Virtual Server OS Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 2125
+          - name: Virtual_Server_Network
+            type: '18'
+            questionText: Virtual Server Network
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 3491
+          - name: Virtual_Server_ComputeProfile
+            type: '18'
+            questionText: Virtual Server Compute Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1804
+          - name: Virtual_Server_VmFolderName
+            type: '18'
+            questionText: Virtual Server Vm Folder Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 3131
+          - name: Virtual_Server_NodeName
+            type: '6'
+            questionText: Virtual Server Node Name
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1533
+          clientScripts:
+          - name: Validate Virtual_Server_OSProfile
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_OSProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_OSProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"7cb0bac3dbce0b4012687d668c96193c", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"7cb0bac3dbce0b4012687d668c96193c", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_Network
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_Network
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_Network';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"85b0bac3dbce0b4012687d668c96194f", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"85b0bac3dbce0b4012687d668c96194f", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_ComputeProfile
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ComputeProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ComputeProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"b8b0bac3dbce0b4012687d668c961936", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"b8b0bac3dbce0b4012687d668c961936", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_VmFolderName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_VmFolderName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_VmFolderName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"c1b0bac3dbce0b4012687d668c961949", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"c1b0bac3dbce0b4012687d668c961949", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate Virtual_Server_NodeName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_NodeName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_NodeName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"f4b0bac3dbce0b4012687d668c961930", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"f4b0bac3dbce0b4012687d668c961930", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: On submit validation
+            type: onSubmit
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onSubmit() {
+               return BlueprintSCClient.beforeSubmitCloudRsrcTemplate(g_form);
+              }
+            active: true
+          - name: Validate Virtual_Server_SSHKeyName
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_SSHKeyName
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_SSHKeyName';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"30b0bac3dbce0b4012687d668c961943", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"30b0bac3dbce0b4012687d668c961943", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: Register Node
+        displayOrder: '3'
+      - name: Provision
+        displayOrder: '1'
+      - name: Bootstrap Node
+        displayOrder: '2'
+      - name: ExecuteConfigPackages
+        displayOrder: '4'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules:
+        - name: Reload Location
+          order: 1300
+          sourceAttribute: CloudAccount
+          actions:
+          - name: Reload Location
+            dataSource: Reload Cloud Location
+            type: Reload
+            targetAttributeName: Location
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: TriggerChangeEvent Location
+          order: 1400
+          sourceAttribute: CloudAccount
+          actions:
+          - name: TriggerChangeEvent Location
+            type: TriggerChangeEvent
+            targetAttributeName: Location
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent UserGroup
+          order: 1500
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent UserGroup
+            type: TriggerChangeEvent
+            targetAttributeName: UserGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Quota
+          order: 1600
+          sourceAttribute: UserGroup
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Virtual_Server_Network
+          order: 2400
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server Network
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Reload Virtual_Server_OSProfile
+          order: 2500
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server OSProfile
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_OSProfile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Virtual_Server_ComputeProfile
+          order: 2600
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server ComputeProfile
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_ComputeProfile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Virtual_Server_VmFolderName
+          order: 2700
+          sourceAttribute: Location
+          actions:
+          - name: Reload Virtual Server VmFolderName
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: Virtual_Server_VmFolderName
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+          conditions: []
+        - name: TriggerChangeEvent Virtual_Server_OSProfile
+          order: 2900
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent Virtual Server OSProfile
+            type: TriggerChangeEvent
+            targetAttributeName: Virtual_Server_OSProfile
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent Virtual_Server_ComputeProfile
+          order: 3000
+          sourceAttribute: Location
+          actions:
+          - name: TriggerChangeEvent Virtual Server ComputeProfile
+            type: TriggerChangeEvent
+            targetAttributeName: Virtual_Server_ComputeProfile
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Reload Profile
+          order: 3100
+          sourceAttribute: Virtual_Server_OSProfile
+          actions:
+          - name: Reload Reload Profile
+            dataSource: Reload Resource Profile
+            type: Reload
+            targetAttributeName: Reload Profile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload Reload Profile
+          order: 3200
+          sourceAttribute: Virtual_Server_ComputeProfile
+          actions:
+          - name: Reload Reload Profile
+            dataSource: Reload Resource Profile
+            type: Reload
+            targetAttributeName: Reload Profile
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Reload WorkloadConfigProvider
+          order: 3400
+          sourceAttribute: WorkloadConfigProviderType
+          actions:
+          - name: Reload WorkloadConfigProvider
+            dataSource: Reload From Pool
+            type: Reload
+            targetAttributeName: WorkloadConfigProvider
+            value: ''
+            order: 100
+            parameterList:
+            - key: WorkloadConfigProviderType
+              value: WorkloadConfigProviderType
+          conditions: []
+        - name: SetValueByScript Virtual_Server_ManagementAttributes
+          order: 3500
+          sourceAttribute: WorkloadConfigProvider
+          actions:
+          - name: SetValueByScript Virtual Server ManagementAttributes
+            type: SetValueByScript
+            targetAttributeName: Virtual_Server_ManagementAttributes
+            value: $(Script:CfgMgmtUtils.getManagementAttributes[arg=${parameter.WorkloadConfigProvider},arg=${parameter.WorkloadConfigProviderType}])
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: SetValueByScript Virtual_Server_ConfigurationOverrides
+          order: 3800
+          sourceAttribute: Virtual_Server_ApplicationProfile
+          actions:
+          - name: SetValueByScript Virtual Server ConfigurationOverrides
+            type: SetValueByScript
+            targetAttributeName: Virtual_Server_ConfigurationOverrides
+            value: $(Script:CfgMgmtUtils.getApplicationProfileAttribute[arg=${parameter.Virtual_Server_ApplicationProfile},arg=${parameter.WorkloadConfigProvider}])
+            order: 100
+            parameterList: []
+          conditions: []
+      - name: FormLoad
+        type: FormLoad
+        rules:
+        - name: Hide ResourceGroupName
+          order: 200
+          sourceAttribute: ''
+          actions:
+          - name: Hide ResourceGroupName
+            type: Hide
+            targetAttributeName: ResourceGroupName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Hide ResourceGroup
+          order: 300
+          sourceAttribute: ''
+          actions:
+          - name: Hide ResourceGroup
+            type: Hide
+            targetAttributeName: ResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Hide CreateResourceGroup
+          order: 400
+          sourceAttribute: ''
+          actions:
+          - name: Hide CreateResourceGroup
+            type: Hide
+            targetAttributeName: CreateResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory ResourceGroupName
+          order: 500
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory ResourceGroupName
+            type: MakeNonMandatory
+            targetAttributeName: ResourceGroupName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory ResourceGroup
+          order: 600
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory ResourceGroup
+            type: MakeNonMandatory
+            targetAttributeName: ResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory CreateResourceGroup
+          order: 700
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory CreateResourceGroup
+            type: MakeNonMandatory
+            targetAttributeName: CreateResourceGroup
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent CloudAccount
+          order: 800
+          sourceAttribute: ''
+          actions:
+          - name: TriggerChangeEvent CloudAccount
+            type: TriggerChangeEvent
+            targetAttributeName: CloudAccount
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload -  Quota
+          order: 900
+          sourceAttribute: ''
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: CloudAccount
+              value: CloudAccount
+            - key: Location
+              value: Location
+          conditions: []
+        - name: Hide SubscriptionId
+          order: 1000
+          sourceAttribute: ''
+          actions:
+          - name: Hide SubscriptionId
+            type: Hide
+            targetAttributeName: SubscriptionId
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory SubscriptionId
+          order: 1100
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory SubscriptionId
+            type: MakeNonMandatory
+            targetAttributeName: SubscriptionId
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Reload Quota
+          order: 1200
+          sourceAttribute: ''
+          actions:
+          - name: Reload Quota
+            dataSource: Check Quota
+            type: Reload
+            targetAttributeName: Quota
+            value: ''
+            order: 100
+            parameterList:
+            - key: Location
+              value: Location
+            - key: CloudAccount
+              value: CloudAccount
+          conditions: []
+        - name: Show Virtual_Server_VmFolderName
+          order: 1800
+          sourceAttribute: ''
+          actions:
+          - name: Show Virtual Server VmFolderName
+            type: Show
+            targetAttributeName: Virtual_Server_VmFolderName
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: Show Virtual_Server_Network
+          order: 1900
+          sourceAttribute: ''
+          actions:
+          - name: Show Virtual Server Network
+            type: Show
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: MakeNonMandatory Virtual_Server_Network
+          order: 2000
+          sourceAttribute: ''
+          actions:
+          - name: MakeNonMandatory Virtual Server Network
+            type: MakeNonMandatory
+            targetAttributeName: Virtual_Server_Network
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+        - name: TriggerChangeEvent- CloudAccount
+          order: 2100
+          sourceAttribute: ''
+          actions:
+          - name: TriggerChangeEvent CloudAccount
+            type: TriggerChangeEvent
+            targetAttributeName: CloudAccount
+            value: ''
+            order: 100
+            parameterList: []
+          conditions: []
+  - operation: ModifySchedule
+    operationType: RECONFIGURE
+    resourceOperations:
+    - name: Blueprint Container Resource.ModifySchedule
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: ModifySchedule
+      parameters:
+      - name: ScheduleTimeZone
+        defaultValue: ${parameter.ScheduleTimeZone}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: ScheduleProfile
+        defaultValue: ${parameter.ScheduleProfile}
+        typeOfMap: SingleMap
+        useInOperation: true
+      depends: ''
+    globalProperties:
+    - name: ScheduleProfile
+      opUniqueId: '3131'
+      mandatory: true
+      order: 76
+    - name: ScheduleTimeZone
+      opUniqueId: '3131'
+      mandatory: true
+      order: 174
+    formBehaviors:
+    - aliasName: WebServerInstaller ModifySchedule
+      catalogName: ModifySchedule
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: ScheduleProfile
+        name: ScheduleProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleProfilePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Profile
+        displayOrder: 76
+        visibility: true
+        regex: ''
+        opUniqueId: '3131'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ScheduleTimeZone
+        name: ScheduleTimeZone
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleTimeZonePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Time Zone
+        displayOrder: 174
+        visibility: true
+        regex: ''
+        opUniqueId: '3131'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: ModifySchedule
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: ''
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: ScheduleProfile
+            type: '18'
+            questionText: Schedule Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 76
+          - name: ScheduleTimeZone
+            type: '18'
+            questionText: Schedule Time Zone
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 174
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Validate ScheduleTimeZone
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleTimeZone
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleTimeZone';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"9285146ddbc2874074ca3a2b7c96191d", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"9285146ddbc2874074ca3a2b7c96191d", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+          - name: Validate ScheduleProfile
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"5285146ddbc2874074ca3a2b7c961917", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"5285146ddbc2874074ca3a2b7c961917", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: ModifySchedule
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+    - aliasName: WebServerInstaller [1] ModifySchedule
+      catalogName: ModifySchedule [1]
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: ScheduleProfile
+        name: ScheduleProfile
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleProfilePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Profile
+        displayOrder: 76
+        visibility: true
+        regex: ''
+        opUniqueId: '3131'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      - catalogProperty: ScheduleTimeZone
+        name: ScheduleTimeZone
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Pools
+        dataSourceValue: ServiceNow::Pools::ScheduleTimeZonePool.All
+        uiDataType: Select
+        helpText: ''
+        displayName: Schedule Time Zone
+        displayOrder: 174
+        visibility: true
+        regex: ''
+        opUniqueId: '3131'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: ModifySchedule [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: ''
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: ScheduleTimeZone
+            type: '18'
+            questionText: Schedule Time Zone
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 174
+          - name: ScheduleProfile
+            type: '18'
+            questionText: Schedule Profile
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 76
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Validate ScheduleProfile
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleProfile
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleProfile';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"7510be83dbce0b4012687d668c961951", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"7510be83dbce0b4012687d668c961951", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Validate ScheduleTimeZone
+            type: onChange
+            uiType: '10'
+            variableName: ScheduleTimeZone
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'ScheduleTimeZone';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"3910be83dbce0b4012687d668c961957", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"3910be83dbce0b4012687d668c961957", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: ModifySchedule
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+  - operation: Cleanup
+    operationType: RECONFIGURE
+    resourceOperations:
+    - name: Blueprint Container Resource.Deprovision
+      order: '1'
+      condition: '''${Stack.items[Blueprint Container Resource].status}''==''2'''
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: Deprovision
+      depends: ''
+    - name: Virtual Server.Deprovision
+      order: '2'
+      condition: '''${Stack.items[Virtual Server].status}''==''2'''
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Deprovision
+      parameters:
+      - name: NetworkInterfaces
+        defaultValue: $(Script:CMPVMNICs.getNICs[${Stack.items[Virtual Server].attributes[sys_id]}])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerID
+        defaultValue: ${Stack.items[Virtual Server].attributes[sys_id]}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: EnableMonitoring
+        defaultValue: ${parameter.Virtual_Server_EnableMonitoring}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: IPAddressPool
+        defaultValue: ${parameter.Virtual_Server_IPAddressPool}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeAddress
+        defaultValue: ${parameter.Virtual_Server_NodeAddress}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerName
+        defaultValue: ${parameter.Virtual_Server_ServerName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: State
+        defaultValue: ${parameter.State}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: LastStartTime
+        defaultValue: ${parameter.Virtual_Server_LastStartTime}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: DNSSuffix
+        defaultValue: ${parameter.Virtual_Server_DNSSuffix}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Blueprint Container Resource.Deprovision
+    globalProperties:
+    - name: Virtual_Server_ServerID
+      opUniqueId: '3469'
+      mandatory: false
+      order: 11
+    formBehaviors:
+    - aliasName: WebServerInstaller Cleanup
+      catalogName: Cleanup
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 11
+        visibility: true
+        regex: ''
+        opUniqueId: '3469'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: Cleanup
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 11
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"6e85146ddbc2874074ca3a2b7c961961", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"6e85146ddbc2874074ca3a2b7c961961", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Deprovision
+        displayOrder: '1'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+    - aliasName: WebServerInstaller [1] Cleanup
+      catalogName: Cleanup [1]
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 11
+        visibility: true
+        regex: ''
+        opUniqueId: '3469'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: Cleanup [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 11
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"0210be83dbce0b4012687d668c9619c9", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"0210be83dbce0b4012687d668c9619c9", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Deprovision
+        displayOrder: '1'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+  - operation: Stop
+    operationType: STOP
+    resourceOperations:
+    - name: Blueprint Container Resource.Stop
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: Stop
+      depends: ''
+    - name: Virtual Server.Stop
+      order: '2'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Stop
+      parameters:
+      - name: State
+        defaultValue: ${parameter.State}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: LastStartTime
+        defaultValue: ${parameter.Virtual_Server_LastStartTime}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerID
+        defaultValue: ${Stack.items[Virtual Server].attributes[sys_id]}
+        typeOfMap: SingleMap
+        useInOperation: true
+      depends: Blueprint Container Resource.Stop
+    globalProperties:
+    - name: Virtual_Server_ServerID
+      opUniqueId: '7442'
+      mandatory: true
+      order: 11
+    formBehaviors:
+    - aliasName: WebServerInstaller Stop
+      catalogName: Stop
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 11
+        visibility: true
+        regex: ''
+        opUniqueId: '7442'
+        formUIGroup: Stop
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: Stop
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 11
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"7685146ddbc2874074ca3a2b7c9619c5", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"7685146ddbc2874074ca3a2b7c9619c5", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Stop
+        displayOrder: '1'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+    - aliasName: WebServerInstaller [1] Stop
+      catalogName: Stop [1]
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 11
+        visibility: true
+        regex: ''
+        opUniqueId: '7442'
+        formUIGroup: Stop
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: Stop [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 11
+          clientScripts:
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"c610fe83dbce0b4012687d668c961908", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"c610fe83dbce0b4012687d668c961908", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Stop
+        displayOrder: '1'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+  - operation: Deprovision
+    operationType: DEPROVISION
+    resourceOperations:
+    - name: Blueprint Container Resource.Deprovision
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: Deprovision
+      depends: ''
+    - name: Virtual Server.Deprovision
+      order: '2'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Deprovision
+      parameters:
+      - name: ServerID
+        defaultValue: ${Stack.items[Virtual Server].attributes[sys_id]}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: IPAddressPool
+        defaultValue: ${parameter.Virtual_Server_IPAddressPool}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeAddress
+        defaultValue: ${parameter.Virtual_Server_NodeAddress}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: LastStartTime
+        defaultValue: ${parameter.Virtual_Server_LastStartTime}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: DNSSuffix
+        defaultValue: ${parameter.Virtual_Server_DNSSuffix}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerName
+        defaultValue: ${parameter.Virtual_Server_ServerName}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: EnableMonitoring
+        defaultValue: ${parameter.Virtual_Server_EnableMonitoring}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: State
+        defaultValue: ${parameter.State}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NetworkInterfaces
+        defaultValue: $(Script:CMPVMNICs.getNICs[${Stack.items[Virtual Server].attributes[sys_id]}])
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Virtual Server.DeregisterNode,
+    - name: Virtual Server.DeregisterNode
+      order: '3'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: DeregisterNode
+      parameters:
+      - name: ConfigMgmtProviderInfo
+        defaultValue: ${parameter.Virtual_Server_ConfigMgmtProviderInfo}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: CredentialId
+        defaultValue: ${parameter.Virtual_Server_CredentialId}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProviderType
+        defaultValue: ${parameter.WorkloadConfigProviderType}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeCredentials
+        defaultValue: ${parameter.Virtual_Server_NodeCredentials}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Script
+        defaultValue: $(CloudScript.scripts.${parameter.Virtual_Server_Script})
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: AdditionalParameters
+        defaultValue: ${parameter.Virtual_Server_AdditionalParameters}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: Organization
+        defaultValue: ${parameter.Virtual_Server_Organization}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeAddress
+        defaultValue: $(Stack.items[Virtual Server].attributes[ip_address])
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: WorkloadConfigProvider
+        defaultValue: ${parameter.WorkloadConfigProvider}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Blueprint Container Resource.Deprovision
+    formBehaviors:
+    - aliasName: WebServerInstaller Deprovision
+      catalogName: Deprovision
+      createCatalog: true
+      catalogItem:
+        name: Deprovision
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: DeregisterNode
+        displayOrder: '2'
+      - name: Deprovision
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+    - aliasName: WebServerInstaller [1] Deprovision
+      catalogName: Deprovision [1]
+      createCatalog: true
+      catalogItem:
+        name: Deprovision [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Deprovision
+        displayOrder: '1'
+      - name: DeregisterNode
+        displayOrder: '2'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+  - operation: Start
+    operationType: START
+    resourceOperations:
+    - name: Blueprint Container Resource.Start
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: Start
+      depends: ''
+    - name: Virtual Server.Start
+      order: '2'
+      resourceBlock: Virtual Server
+      resourceInterface: Virtual Server Interface
+      operation: Start
+      parameters:
+      - name: CloudAccount
+        defaultValue: ${parameter.CloudAccount}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: EnableMonitoring
+        defaultValue: ${parameter.Virtual_Server_EnableMonitoring}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: State
+        defaultValue: ${parameter.State}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: ServerID
+        defaultValue: ${Stack.items[Virtual Server].attributes[sys_id]}
+        typeOfMap: SingleMap
+        useInOperation: true
+      - name: Location
+        defaultValue: ${parameter.Location}
+        typeOfMap: SingleMap
+        useInOperation: false
+      - name: NodeAddress
+        defaultValue: ${parameter.Virtual_Server_NodeAddress}
+        typeOfMap: SingleMap
+        useInOperation: false
+      depends: Blueprint Container Resource.Start
+    globalProperties:
+    - name: Virtual_Server_ServerID
+      opUniqueId: '2042'
+      mandatory: true
+      order: 1111
+    formBehaviors:
+    - aliasName: WebServerInstaller Start
+      catalogName: Start
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 1111
+        visibility: true
+        regex: ''
+        opUniqueId: '2042'
+        formUIGroup: Start
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: Start
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1111
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"0b85546ddbc2874074ca3a2b7c961960", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"0b85546ddbc2874074ca3a2b7c961960", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Start
+        displayOrder: '1'
+      formEvents:
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+    - aliasName: WebServerInstaller [1] Start
+      catalogName: Start [1]
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: Virtual_Server_ServerID
+        name: Virtual_Server_ServerID
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: Hidden
+        helpText: ''
+        displayName: Virtual Server Server ID
+        displayOrder: 1111
+        visibility: true
+        regex: ''
+        opUniqueId: '2042'
+        formUIGroup: Start
+        readonly: false
+        mandatory: true
+      catalogItem:
+        name: Start [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: Are you sure you want to perform this operation?
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: Virtual_Server_ServerID
+            type: '5'
+            questionText: Virtual Server Server ID
+            helpText: ''
+            defaultValue: ''
+            mandatory: true
+            active: true
+            showHelp: false
+            order: 1111
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Validate Virtual_Server_ServerID
+            type: onChange
+            uiType: '10'
+            variableName: Virtual_Server_ServerID
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'Virtual_Server_ServerID';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"a210fe83dbce0b4012687d668c96198d", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"a210fe83dbce0b4012687d668c96198d", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: General Info
+        displayOrder: '0'
+      - name: Start
+        displayOrder: '1'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+  - operation: ModifyLease
+    operationType: RECONFIGURE
+    resourceOperations:
+    - name: Blueprint Container Resource.ModifyLease
+      order: '1'
+      resourceBlock: WebServerInstaller Blueprint Resource
+      resourceInterface: WebServerInstaller Resource Interface
+      operation: ModifyLease
+      parameters:
+      - name: LeaseEndDate
+        defaultValue: ${parameter.LeaseEndDate}
+        typeOfMap: SingleMap
+        useInOperation: true
+      depends: ''
+    globalProperties:
+    - name: LeaseEndDate
+      opUniqueId: '5914'
+      mandatory: false
+      order: 86
+    formBehaviors:
+    - aliasName: WebServerInstaller ModifyLease
+      catalogName: ModifyLease
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: LeaseEndDate
+        name: LeaseEndDate
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: DateTime
+        helpText: ''
+        displayName: Lease End Date
+        displayOrder: 86
+        visibility: true
+        regex: ''
+        opUniqueId: '5914'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: ModifyLease
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: ''
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: LeaseEndDate
+            type: '10'
+            questionText: Lease End Date
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 86
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+          - name: Validate LeaseEndDate
+            type: onChange
+            uiType: '10'
+            variableName: LeaseEndDate
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'LeaseEndDate';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"1b85546ddbc2874074ca3a2b7c96199d", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"1b85546ddbc2874074ca3a2b7c96199d", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: ModifyLease
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []
+    - aliasName: WebServerInstaller [1] ModifyLease
+      catalogName: ModifyLease [1]
+      createCatalog: true
+      catalogProperties:
+      - catalogProperty: LeaseEndDate
+        name: LeaseEndDate
+        parameterTypeName: String
+        defaultValue: ''
+        dataSource: Text
+        dataSourceValue: ''
+        uiDataType: DateTime
+        helpText: ''
+        displayName: Lease End Date
+        displayOrder: 86
+        visibility: true
+        regex: ''
+        opUniqueId: '5914'
+        formUIGroup: General Info
+        readonly: false
+        mandatory: false
+      catalogItem:
+        name: ModifyLease [1]
+        type: item
+        category: Compute
+        description: CMP Blueprint
+        shortDescription: ''
+        variables:
+        - name: cloudTaskWorkflowInput
+          type: '6'
+          questionText: cloudTaskWorkflowInput
+          helpText: ''
+          defaultValue: ''
+          mandatory: false
+          active: true
+          showHelp: false
+          order: 0
+        scriptClients: []
+        variableSets:
+        - name: Lifecycle Operation Parameters
+          description: ''
+          title: Lifecycle Operation Parameters
+          layout: 2across
+          order: 2000
+          variables:
+          - name: LeaseEndDate
+            type: '10'
+            questionText: Lease End Date
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 86
+          - name: resourceId
+            type: '6'
+            questionText: resourceId
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          - name: operationName
+            type: '6'
+            questionText: operationName
+            helpText: ''
+            defaultValue: ''
+            mandatory: false
+            active: true
+            showHelp: false
+            order: 0
+          clientScripts:
+          - name: Validate LeaseEndDate
+            type: onChange
+            uiType: '10'
+            variableName: LeaseEndDate
+            script: |-
+              // System generated script, please do not change
+              function onChange(control, oldValue, newValue, isLoading) {
+              var varName = 'LeaseEndDate';
+               BlueprintSCClient.validateCatItemParameterVariables('sn_cmp.BlueprintSCAjax',"3610fe83dbce0b4012687d668c9619e4", oldValue, newValue, isLoading, g_form);
+              if( oldValue != newValue ) {
+               BlueprintSCClient.executeFieldChange('sn_cmp.DynamicFormAjax',"3610fe83dbce0b4012687d668c9619e4", oldValue, newValue, isLoading, g_form,g_form.getUniqueValue());
+              }
+              }
+            active: true
+          - name: Hide operation variables
+            type: onLoad
+            uiType: '10'
+            script: |-
+              // System generated script, please do not change
+              function onLoad() {
+                g_form.setDisplay('resourceId', false);
+                g_form.setDisplay('operationName', false);
+              }
+            active: true
+        active: true
+      formUIGroups:
+      - name: ModifyLease
+        displayOrder: '1'
+      - name: General Info
+        displayOrder: '0'
+      formEvents:
+      - name: FormLoad
+        type: FormLoad
+        rules: []
+      - name: FieldChange
+        type: FieldChange
+        rules: []

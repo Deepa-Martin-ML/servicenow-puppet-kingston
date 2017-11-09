@@ -1,0 +1,142 @@
+var PuppetEnterpriseClassification = Class.create();
+PuppetEnterpriseClassification.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+
+    initialize: function (parameters, headers) {
+        this.logger = new PuppetEnterpriseLogger();
+        this.apiPath = "/api/classifier/groups";
+        PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+    },
+
+    /**
+     * This method Discovers List of groups at Puppet Enterprise upon Discover operation.
+     * updates CMDB tables data
+     */
+    discoverGroups: function () {
+        this.logger.info("*** Puppet Enterprise Classification ***");
+        //var groupURL = puppetUrl + this.apiPath;
+        var groupPayload = [];
+        groupsResp = [];
+
+        try {
+            //Get group Lists
+            //this.getgroupsList(this.apiPath);
+			var groupsResp = this._httpGET(this.apiPath);
+            for (var index = 0; index < groupsResp.groups.length; index++) {
+                //build group-table data for SNOW CMDB
+                var groupDetails = {},
+                    class_names = [];
+                groupDetails['id'] = groupsResp[indeindex].id;
+                groupDetails['name'] = groupsResp.groups[index].name;
+				//groupDetails['environment'] = groupsResp[indeindex].environment;
+                for (var classes in groupsResp.groups[index].classes) {
+                    class_names.push(classes);
+                }
+                groupDetails['classes'] = JSON.stringify(class_names);
+                groupPayload.push(groupDetails);
+            }
+            this.logger.info("### group Result : " + new JSON().encodeObject(groupPayload));
+			
+            var groupData = {};
+			groupData.groups = groupPayload;
+			groupData.objectId = this.objectId;
+			return groupData;
+        } catch (exception) {
+            //duckking eindexception to main method
+            throw exception;
+        }
+    },
+
+
+    /**
+     * This method add a class to the specific classification
+     * Inputs are from Stack variables and blueprint, which is invoked from EindexecuteConfig operation.
+     */
+    addParameterToClass: function () {
+        this.logger.info("*** Add Parameter to a class in the classification Group at Puppet Enterprise ***");
+
+        try {
+            // Get the details of the specific classification from the puppet enterprise
+            var groupResp = this._httpGET(this.apiPath);
+            var classPayload = {};
+            var clspay = {};
+            var id = "";
+            /*
+				{"group": {
+					"rule": [
+					    "or",
+					    [
+					      "=",
+					      "name",
+					      "puppet-agent-2"
+					    ]
+					],
+					"parent": "f690b94c-5f16-4679-bc45-1d5d129fe84d",
+					"id": "983319db-6139-4622-8413-3d05b406fdf4",
+					"name": "SNOW PE Agent",
+					"classes": {
+						"httpd": {}
+					},
+					"environmentTrumps": false,
+					"variables": {},
+					"environment": "production",
+					"description": "Puppet Agent Nodes"
+				    }
+				}    
+				
+    		*/
+            for (var index = 0; index < groupResp.groups.length; index++) {
+                if (groupResp.groups[index].name == "SNOW PE Agent") {
+                    clspay = groupResp.groups[index];
+                    id = groupResp.groups[index].id;
+
+                    var classes = {};
+                    classes['httpd'] = {};
+                    clspay.classes = classes;
+                }
+            }
+            classPayload.group = clspay;
+            this.logger.info("--> classPayload (Adding class) : " + new JSON().encodeObject(classPayload));
+            var classifierClassURL = "/api/classifier/groups/" + id;
+
+            var postClassPayload = new JSON().encode(classPayload);
+
+            var groupTempLaunchResp = this._httpPUT(classifierClassURL, postClassPayload);
+        } catch (eindexception) {
+            //duckking eindexception to main method
+            throw eindexception;
+        }
+    },
+
+	
+    /**
+     * This method find all the assigned class to the specific classification
+     * updates CMDB tables data
+     */
+    addClassForGroup : function () {
+        this.logger.info("*** Add Class For Group ***");
+
+        try {
+            // Get the details of the specific classification from the puppet enterprise
+            var groupResp = this._httpGET(this.apiPath);
+            for (var index = 0; index < groupResp.groups.length; index++) {
+				var additionalParam = this._getAddtionalParameters();
+				ms.log("#### additional Params--->"+ JSON.stringify(additionalParam));
+				
+                if (groupResp.groups[index].name == additionalParam.Agent_Classification) {
+                    var classes = groupResp.groups[index].classes;
+					if(!classes.configName){
+						var groupPath = this.apiPath + "/" + groupResp.groups[index].id;
+						var payload = {};
+						//add class to group
+						var grpResp = this._httpPUT(groupPath, putPayload);
+						//add param to class
+					}
+                }
+            }
+        } catch (eindexception) {
+            //duckking eindexception to main method
+            throw eindexception;
+        }
+    },
+    type: "PuppetEnterpriseClassification"
+});

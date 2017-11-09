@@ -1,0 +1,2 @@
+var peI = new PuppetEnterpriseInventory(this.parameters, this.headers);
+peI.unsignCertificateForNode();

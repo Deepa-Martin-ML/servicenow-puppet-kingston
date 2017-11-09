@@ -1,0 +1,12 @@
+registerNode();
+
+function registerNode(){
+	ms.log("#######################################################");
+	ms.log("#### accepting certificate function from registernode ");
+	ms.log("#######################################################");
+	//create host in tower
+	var invObj = new PuppetEnterpriseInventory(this.parameters, this.headers);
+	var registerNodePayload = invObj.acceptCertRequest();
+	
+	//return registerNodePayload;
+}

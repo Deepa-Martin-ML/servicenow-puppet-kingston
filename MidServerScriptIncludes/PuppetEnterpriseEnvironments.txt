@@ -1,0 +1,43 @@
+var PuppetEnterpriseEnvironments = Class.create();
+PuppetEnterpriseEnvironments.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+
+	initialize: function (parameters, headers) {
+		this.apiPath = "/api/classifier/environments";
+		PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+
+	},
+
+
+	/**
+     * This method Discovers Environment at Puppet Enterprise upon Discover operation.
+     * updates CMDB tables data
+     */
+	discoverEnvironments: function () {
+		this.logger.info("*** PUPPET ENVIRONMENTS ***");
+		var environmentPayload = [];
+
+		try {
+			//Get Environment Lists
+			var envnRep = this._httpGET(this.apiPath);
+
+			for (var index = 0; index < envnRep.length; index++) {
+				var environmentDetails = {};
+				environmentDetails['name'] = envnRep[index];
+
+				environmentPayload.push(environmentDetails);
+			}
+			this.logger.info("### EnvironmentResult : " + JSON.stringify(environmentPayload));
+
+			var environmentData = {};
+			environmentData.environments = environmentPayload;
+			environmentData.objectId = this.objectId;
+			return environmentData;
+		} 
+		catch (exception) {
+			//duckking exception to main method
+			throw exception;
+		}
+	},
+
+	type: "PuppetEnterpriseEnvironments"
+});

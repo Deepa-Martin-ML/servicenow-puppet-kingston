@@ -1,0 +1,14 @@
+bootstrapNode();
+
+function bootstrapNode(){
+	
+	ms.log("#######################################################");
+	ms.log("#### installing agent at host");
+	ms.log("#######################################################");
+	
+	//insatll the puppet agent at host in cloud
+	var invObj = new PuppetEnterpriseInventory(this.parameters, this.headers);
+	var bootStrapNodePayload = invObj.installAgentAtNode();
+	
+	//return bootstrapNodePayload;
+}

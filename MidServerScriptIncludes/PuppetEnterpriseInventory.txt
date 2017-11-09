@@ -1,0 +1,191 @@
+var PuppetEnterpriseInventory = Class.create();
+PuppetEnterpriseInventory.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+
+	initialize: function (parameters, headers) {
+		this.apiPath = "/api/classifier/nodes";
+		this.secureShellhelper = new this.SecureShellHelper();
+		PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+	},
+
+
+	/**
+     * This method is to Accept Cert Request from Puppet Agent at Puppet Enterprise upon Register Node operation.
+     */
+	acceptCertRequest: function(){
+		//accept the request
+		var additionalParameters = this.parameters.get('AdditionalParameters');
+		var additionalParametersPayload = new JSON().decode(additionalParameters);
+		ms.log("### additionalParameters--->"+additionalParameters);
+		var nodeName = additionalParametersPayload['node_name'];
+		ms.log("### nodeName---with lower case-->"+nodeName.toLowerCase());
+
+		this.apiPath = "/api/certificates/nodes";
+		var payload = {};
+		payload.nodes = [];
+		payload.nodes.push(nodeName.toLowerCase());
+		payload.action = "accept";
+
+
+		var postPayload = new JSON().encode(payload);
+		var acceptCertResp = this._httpPOST(this.apiPath, postPayload);
+
+		ms.log("### acceptCertResp-->"+JSON.stringify(acceptCertResp));
+
+		if(acceptCertResp.nodes[0].state == "failed")
+			throw new PuppetEnterpriseAPIException("Node-Certificate Not Found at Puppet Master", acceptCertResp.nodes[0].error.status);
+
+	},
+
+
+	/**
+    * This method Discovers List of Inventories at Puppet Enterprise upon Discover operation.
+    * updates CMDB tables data
+    */
+	discoverInventories: function () {
+		this.logger.info("*** PUPPET INVENTORY ***");
+		// var inventoryURL = puppetUrl + this.apiPath;
+		var inventoryPayload = [];
+		invenResp = [];
+
+		var FactRep ="";
+
+		try {
+			//Get Inventory Lists
+			var payload = {};
+			var invenResp = this._httpPOST( this.apiPath, payload);
+
+			for (var index = 0; index < invenResp.length; index++) {
+				var inventoryDetails = {};
+				inventoryDetails['name'] = invenResp[index].certname;
+				inventoryDetails['certname'] = invenResp[index].certname;
+				inventoryDetails['catalogenvironment'] = invenResp[index].catalogEnvironment;
+				inventoryDetails['reportenvironment'] = invenResp[index].reportEnvironment;
+				inventoryDetails['factsenvironment'] = invenResp[index].factsEnvironment;
+				inventoryDetails['latest_report_status'] = invenResp[index].latestReportStatus;
+				inventoryDetails['cached_catalog_status'] = invenResp[index].cachedCatalogStatus;
+				inventoryDetails['latest_report_noop_pending'] = invenResp[index].latestReportNoopPending;
+				inventoryDetails['latest_report_noop'] = invenResp[index].latestReportNoop;
+				inventoryDetails['latest_report_corrective_change'] = invenResp[index].latestReportCorrectiveChange;
+				inventoryDetails['latest_report_hash'] = invenResp[index].latestReportHash;
+
+				inventoryPayload.push(inventoryDetails);
+
+				var nodeId = invenResp[index].id;
+				this.logger.info("***--> NODE ID : " + nodeId);
+				var factUrl = "/api/classifier/nodes/" + nodeId + "/facts";
+
+				var factObj = new PuppetEnterpriseFacts(this.parameters, this.headers);
+				FactRep = factObj.discoverFacts(nodeId, factUrl);
+			}
+			this.logger.info("### Inventory Result : " + new JSON().encodeObject(inventoryPayload));
+
+			var inventoryData = {};
+			inventoryData.inventories = inventoryPayload;
+			inventoryData.facts = FactRep;
+			inventoryData.objectId = this.objectId;
+			return inventoryData;
+
+		} catch (exception) {
+			//duckking exception to main method
+			throw exception;
+		}
+	},
+
+
+	/* 
+	 * This method returns master's hostname, which is invoked at installAgent
+	 */
+	getMasterHostName: function(){
+		this.logger.info("*** get Master hostname ***");
+
+		var masterIp = this.enterpriseUrl.split('//')[1];
+		var masterHostname = "";
+		var payload = {};
+		var invenResp = this._httpPOST(this.apiPath, payload);
+		var invList = invenResp.nodes;
+		for (var index = 0; index < invList.length; index++) {
+			var nodeId = invList[index].id;
+			this.logger.info("***--> NODE ID : " + nodeId);
+			var factUrl = "/api/classifier/nodes/" + nodeId + "/facts";
+
+			var factResp = this._httpGET(factUrl);
+			var factsList = factResp["fact-list"].entries;
+			for (var factIndex = 0; factIndex < factsList.length; factIndex++) {
+				if((factsList[factIndex].name == "ipaddress") && (factsList[factIndex].value == masterIp)){
+					masterHostname = invList[index].certname;
+				}
+			}
+		}
+		if(masterHostname == ""){
+			//throw new PuppetEnterpriseAPIException('Puppet Enterprise HostName not found!!!!!', this.URL_NOT_FOUND);
+		}
+		return masterHostname;
+	},
+
+
+	/**
+     * This method is to install puppet agent  at Provisioned Node, as Puppet Agent at Cloud upon BootStrap operation.
+     */
+	installAgentAtNode: function(){
+		this.logger.info("*** INSTALL PUPPET AGENT ***");
+
+		//ms.log("### We will get master name--");
+		var masterName = this.getMasterHostName();
+		//ms.log("### masterName-->"+masterName);
+
+		ms.log("### in request for agent");
+		var additionalParameters = this.parameters.get('AdditionalParameters');
+		var additionalParametersPayload = new JSON().decode(additionalParameters);
+		//ms.log("### additionalParameters--->"+additionalParameters);
+		var configScript1 = this.parameters.get('ConfigScript').toString();
+		var nodeName = "NODE_NAME="+this._getNodeName();
+		var masterIp = "MASTER_IP="+this.enterpriseUrl;
+		var modConfigScript1 = configScript1.replace("NODE_NAME=", nodeName);
+		var modConfigScript2 = modConfigScript1.replace("MASTER_IP=",  masterIp);
+		var masterHostName = "MASTER_HOSTNAME="+masterName;
+		var modConfigScript3 = modConfigScript2.replace("MASTER_HOSTNAME=", masterHostName);
+		var nodeAddress = this._getNodeAddress();
+		var nodeCredentialsJson = this.parameters.get('NodeCredentials');
+		var nodeCredential = new JSON().decode(nodeCredentialsJson);
+		var configScript = modConfigScript3;
+		var userName=nodeCredential['UserName'];
+		var password=nodeCredential['Password'];
+		var privateKey=nodeCredential['PrivateKey'];
+		var privateKeyValid =privateKey.replaceAll('\\n','\n');
+		//ms.log("### username-->"+userName);
+		//ms.log("#### password--->"+password);
+		var shellRes = this.secureShellhelper.executeCommand(nodeAddress, '22', userName, password, privateKeyValid, configScript, "sh", false, true, true);
+		//ms.log("### shell Res--->"+shellRes + " type of---> "+typeof shellRes + "----stringify-->"+ JSON.stringify(shellRes));
+		var shellResp2 = shellRes.toString();
+		//ms.log("### shell resp2-->"+ shellResp2);
+		var shell3 = shellResp2.split('ExecutionResponse');
+		//ms.log("### shell3--->"+ shell3 + "### string--->"+ JSON.stringify(shell3));
+		var shell5 = shell3[1].replaceAll('=', ':').replaceAll("stdOut", '"stdOut"').replaceAll("stdErr",'"stdErr"').replaceAll("exitCode",'"exitCode"').replaceAll("executedOn",'"executedOn"').replaceAll("response",'"response"');
+		//ms.log("#### shell5--->"+shell5);
+
+		var shell4 = shell5.replaceAll("'", '\\"').replace(/\r\n/g, " ").replace(/"/g, '\\"');
+		//ms.log("#### shell4"+shell4);
+		//var shellResponse = new JSON().decodeObject(shell4);
+		//ms.log("### shellResponse--->"+shellResponse);
+		//ms.log("### stdout--->"+shellResponse.stdOut + "### exitCode-->"+shellResponse.exitCode);
+		var shellResponse = JSON.parse(shell4);
+		///////ms.log("#### shellRespones1===>"+ shellResponse1);
+		//ms.log("### stdout--->"+shellResponse.stdOut + "### exitCode-->"+shellResponse.exitCode);
+		if(shellResponse.exitCode == -1){
+			//sleep for few seconds, so that agent will request master
+			var Thread  = Packages.java.lang.Thread;
+			//ms.log("### sleep started for 2 min");
+			Thread.sleep(120000);
+			//ms.log("### sleep done");
+			this.installAgentAtNode();
+		}
+
+	},
+
+	unsignCertificateForNode: function(){
+		// code to unsign certificate
+		this.logger.info("**** Unsign Certificate for Node ****");
+	},
+
+	type: "PuppetEnterpriseInventory"
+});

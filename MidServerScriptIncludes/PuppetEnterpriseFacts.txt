@@ -1,0 +1,68 @@
+var PuppetEnterpriseFacts = Class.create();
+PuppetEnterpriseFacts.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+
+    initialize: function (parameters, headers) {
+        this.logger = new PuppetEnterpriseLogger();
+        PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+    },
+
+	
+    /**
+     * This method Discovers Facts of particular Inventory at Puppet Enterprise upon Discover operation.
+     * updates CMDB tables data
+     * This method is invoked in Discover inventory method
+     */
+    discoverFacts: function (nodeId, factUrl) {
+        this.logger.info("*** PUPPET FACTS ***");
+        var factsPayload = [];
+        //factsList = [];
+
+        try {
+            //Get Fact Lists
+           // this.getfactList(factUrl);
+			var factResp = this._httpGET(factUrl);
+        var factsList = factResp.fact-list.entries;
+
+            for (var index = 0; index < factsList.length; index++) {
+                var factsDetails = {};
+                factsDetails['id'] = factsList[index].id;
+                factsDetails['node_id'] = nodeId;
+				factsDetails['name'] = factsList[index].name;
+                factsDetails['fingerprint'] = factsList[index].fingerprint;
+                factsDetails['state'] = factsList[index].state;
+
+                factsPayload.push(factsDetails);
+            }
+
+            this.logger.info("### Facts Result : " + new JSON().encodeObject(factsPayload));
+			
+			
+            return factsPayload;
+        } catch (exception) {
+            //duckking exception to main method
+            throw exception;
+        }
+    },
+
+
+    /** ***************************** TO BE DELETED ****************************************
+     * This method gets Facts of Inventories at Puppet Enterprise upon Discover operation.
+     * This method is invoked recursively, if number of facts exceeds a page.
+     * This method is invoked in DiscoverInventory method
+     */
+    getfactList: function (factUrl) {
+
+        var factResp = this._httpGET(factUrl);
+        var fact_list = "fact-list";
+       
+		for (var factlist in factResp[fact_list].entries) {
+            factsList.push(factResp[fact_list].entries[factlist]);
+        }
+		
+		if (factResp.next != null){
+            this.getfactList(factResp.next);
+		}
+    },
+
+    type: "PuppetEnterpriseFacts"
+});

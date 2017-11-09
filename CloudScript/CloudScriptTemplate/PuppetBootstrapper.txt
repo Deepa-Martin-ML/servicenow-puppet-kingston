@@ -1,0 +1,31 @@
+#!/bin/sh
+
+NODE_NAME=${parameter.NodeName}
+LOCAL_HOST_NAME=$(hostname)
+if [ $LOCAL_HOST_NAME != $NODE_NAME ]
+then 
+   echo "NodeName is $LOCAL_HOST_NAME  and not set  to $NODE_NAME"
+   reboot
+else   
+   echo "NodeName has been set"
+   MASTER_IP=${parameter.WorkloadConfigProvider}
+   IP=$(echo $MASTER_IP | cut -f3 -d/)
+   MASTER_HOSTNAME=
+   HOSTS_LINE="$IP $MASTER_HOSTNAME"
+   echo "HOSTS_LINE: $HOSTS_LINE"
+   
+   if [ -n "$(grep $HOSTS_LINE /etc/hosts)" ]
+   then       
+	  echo "$MASTER_HOSTNAME already exists"
+   else 
+	  echo "$HOSTS_LINE" >> /etc/hosts
+	  CMD="service network restart"
+   fi
+   sed -i '/search/d' /etc/resolv.conf
+   URL="https://$MASTER_HOSTNAME:8140/packages/current/install.bash"
+   curl -k $URL | sudo bash
+   CMD="export PATH=$PATH:/opt/puppetlabs/puppet/bin:/opt/puppetlabs/puppet/lib:/opt/puppetlabs/puppet/bin/gem"
+   CMD="service puppet start"
+   PUPPET_STATUS=$(service puppet status | grep Active)
+   echo "PUPPET_AGENT_STATUS : $PUPPET_STATUS"
+fi

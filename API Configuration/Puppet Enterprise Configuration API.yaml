@@ -1,0 +1,321 @@
+cloud-api:
+  name: Puppet Enterprise Configuration API
+  scripted: true
+  description: ''
+  version: '1.0'
+  provider: puppet-enterprise
+  scriptInstance: false
+  connectorName: Script Connector
+  interfaceName: Configuration Management Interface
+  category: Config Management
+  connector:
+    name: Script Connector
+    description: Connector to execute scripts
+    vendor: ServiceNow
+    version: '0.1'
+    releaseDate: 11/17/2016
+    type: Component
+    category: Tools
+    endpoint:
+      name: script
+      contextPath: execute
+      direction: Consumer
+      configParameters:
+      - name: OperationKey
+        description: OperationKey
+        defaultValue: ScriptExecution
+        type: config
+        dataType: string
+      operations:
+      - name: ExecuteScript
+        parameters:
+        - name: ScriptType
+          description: Script Type
+          defaultValue: ''
+          dataType: string
+          mandatory: false
+        - name: ScriptName
+          description: Script Name
+          defaultValue: ''
+          dataType: string
+          mandatory: false
+        - name: Parameters
+          description: Parameters
+          defaultValue: ''
+          dataType: string
+          mandatory: true
+  apiInterface:
+    name: Configuration Management Interface
+    description: Works with multiple providers for the configuration management
+    category: Config Management
+    operations:
+    - name: PushConfigPackages
+      parameters:
+      - name: AdditionalParameters
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScript
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+      - name: ConfigPackages
+        mandatory: false
+      - name: NodeAddress
+        mandatory: false
+    - name: BootstrapNode
+      parameters:
+      - name: NodeCredentials
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+      - name: ConfigScript
+        mandatory: false
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+    - name: RegisterNode
+      parameters:
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+      - name: ConfigScript
+        mandatory: false
+    - name: DeregisterNode
+      parameters:
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScript
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+    - name: Discover
+      parameters:
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+      - name: ConfigScript
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+    - name: ExecuteConfigPackages
+      parameters:
+      - name: ConfigScript
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigurationOverrides
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+    - name: DeprovisionConfigPackages
+      parameters:
+      - name: ConfigScript
+        mandatory: false
+      - name: NodeCredentials
+        mandatory: false
+      - name: AdditionalParameters
+        mandatory: false
+      - name: NodeAddress
+        mandatory: false
+      - name: ConfigMgmtProviderInfo
+        mandatory: false
+      - name: ConfigScriptType
+        mandatory: false
+    systemDefined: true
+  configOverrides:
+  - name: Endpoint
+    overrideValue: $(CloudCredential.URL)
+    configParameter:
+      name: Endpoint
+      description: URL For the Configuration Manager
+      defaultValue: $(CfgMgmtCredential.URL)
+      type: header
+      dataType: string
+  - name: Identity
+    overrideValue: $(CloudCredential.user_name)
+    configParameter:
+      name: Identity
+      description: Identity to use for the cloud provider
+      defaultValue: $(CloudCredential.User)
+      type: header
+      dataType: string
+  - name: Credentials
+    overrideValue: $(CloudCredential.password)
+    configParameter:
+      name: Credentials
+      description: Credentials for the cloud provider
+      defaultValue: $(CloudCredential.Password)
+      type: header
+      dataType: password
+  mappedMethod:
+  - interfaceOperationName: DeregisterNode
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-DeregisterNode
+      description: Script for CAPI - Puppet Enterprise Configuration API.DeregisterNode
+      active: true
+      script: "var peI = new PuppetEnterpriseInventory(this.parameters, this.headers);\r\
+        \npeI.unsignCertificateForNode();"
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: RegisterNode
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-RegisterNode
+      description: Script for CAPI - Puppet Enterprise Configuration API.RegisterNode
+      active: true
+      script: "registerNode();\r\n\r\nfunction registerNode(){\r\n\tms.log(\"#######################################################\"\
+        );\r\n\tms.log(\"#### accepting certificate function from registernode \"\
+        );\r\n\tms.log(\"#######################################################\"\
+        );\r\n\t//create host in tower\r\n\tvar invObj = new PuppetEnterpriseInventory(this.parameters,\
+        \ this.headers);\r\n\tvar registerNodePayload = invObj.acceptCertRequest();\r\
+        \n\t\r\n\t//return registerNodePayload;\r\n}"
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: DeprovisionConfigPackages
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-DeprovisionConfigP
+      description: Script for CAPI - Puppet Enterprise Configuration API.DeprovisionConfigPackages
+      active: true
+      script: ""
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: PushConfigPackages
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-PushConfigPackages
+      description: Script for CAPI - Puppet Enterprise Configuration API.PushConfigPackages
+      active: true
+      script: ""
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: ExecuteConfigPackages
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-ExecuteConfigPacka
+      description: Script for CAPI - Puppet Enterprise Configuration API.ExecuteConfigPackages
+      active: true
+      script: "var pj = new PuppetEnterpriseJob(this.parameters, this.headers);\r\n\
+        pj.launchJobTemplate();\r\n//pj.runAgentOnNode();"
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: BootstrapNode
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-BootstrapNode
+      description: Script for CAPI - Puppet Enterprise Configuration API.BootstrapNode
+      active: true
+      script: "bootstrapNode();\r\n\r\nfunction bootstrapNode(){\r\n\t\r\n\tms.log(\"\
+        #######################################################\");\r\n\tms.log(\"\
+        #### installing agent at host\");\r\n\tms.log(\"#######################################################\"\
+        );\r\n\t\r\n\t//insatll the puppet agent at host in cloud\r\n\tvar invObj\
+        \ = new PuppetEnterpriseInventory(this.parameters, this.headers);\r\n\tvar\
+        \ bootStrapNodePayload = invObj.installAgentAtNode();\r\n\t\r\n\t//return\
+        \ bootstrapNodePayload;\r\n}"
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  - interfaceOperationName: Discover
+    endpointOperationName: ExecuteScript
+    supportedVersion: '1.0'
+    requestScript:
+      name: puppet-enterprise-1.0-Discover
+      description: Script for CAPI - Puppet Enterprise Configuration API.Discover
+      active: true
+      script: "discoverPuppetEnterprise();\r\n\r\nfunction discoverPuppetEnterprise()\
+        \ {\r\n\r\n    try {\r\n        var discoveryPayload = {};\r\n\t\tvar additionalParameters\
+        \ = this.parameters.get('AdditionalParameters');\r\n\t\tvar additionalParams\
+        \ = new JSON().decode(additionalParameters);\r\n\t\tvar discoveryParameter\
+        \ = additionalParams.entity;\r\n\t\t\r\n        ms.log(\"$$$ discoveryParameter\
+        \ : \" + discoveryParameter);\r\n\r\n        if (discoveryParameter == \"\
+        environment\") {\r\n            //invoke Environments Discovery\r\n      \
+        \      var peE = new PuppetEnterpriseEnvironments(this.parameters, this.headers);\r\
+        \n            var environments = peE.discoverEnvironments();\r\n         \
+        \   discoveryPayload['environments'] = environments.environments;\r\n\t\t\t\
+        discoveryPayload['objectId'] =  environments.objectId;\r\n        }\r\n\t\t\
+        \r\n\t\tif (discoveryParameter == \"group\") {\r\n            //invoke Environments\
+        \ Discovery\r\n            var peG = new PuppetEnterpriseClassification(this.parameters,\
+        \ this.headers);\r\n            var groups = peG.discoverGroups();\r\n   \
+        \         discoveryPayload['groups'] = groups.groups;\r\n\t\t\tdiscoveryPayload['objectId']\
+        \ =  groups.objectId;\r\n        }\r\n\r\n        if (discoveryParameter ==\
+        \ \"inventory\") {\r\n            //invoke Inventories Discovery\r\n     \
+        \       var peI = new PuppetEnterpriseInventory(this.parameters, this.headers);\r\
+        \n            var inventories = peI.discoverInventories();\r\n           \
+        \ discoveryPayload['inventories'] = inventories.inventories;\r\n\t\t\tdiscoveryPayload['facts']\
+        \ = inventories.facts;\r\n\t\t\tdiscoveryPayload['objectId'] =  inventories.objectId;\r\
+        \n        }\r\n\r\n        if (discoveryParameter == \"unsigned_certificate\"\
+        ) {\r\n            //invoke Unsigned Certificates Discovery\r\n          \
+        \  var peC = new PuppetEnterpriseUnsignedCerts(this.parameters, this.headers);\r\
+        \n            var unsignedCertificates = peC.discoverUnsignedCert();\r\n \
+        \           discoveryPayload['unsignedCertificates'] = unsignedCertificates.unsigned_certs;\r\
+        \n\t\t\tdiscoveryPayload['objectId'] =  unsignedCertificates.objectId;\r\n\
+        \        }\r\n\r\n        if (discoveryParameter == \"job_modules\") {\r\n\
+        \            //invoke job_modules Discovery\r\n            var peJ = new PuppetEnterpriseJob(this.parameters,\
+        \ this.headers);\r\n\t\t\tvar jobTemplates = peJ.discoverJobModules();\r\n\
+        \            discoveryPayload['job_modules'] = jobTemplates.job_modules;\r\
+        \n\t\t\tdiscoveryPayload['objectId'] =  jobTemplates.objectId;\r\n       \
+        \ }\r\n\r\n        return discoveryPayload;\r\n    } catch (exception) {\r\
+        \n        throw exception;\r\n    }\r\n}\r\n"
+      scriptType: JavaScript
+      directory: false
+    responseProcessor: {}
+    executeScriptOnInstance: false
+  systemDefined: false
+  providerObject:
+    name: Puppet
+    description: ''
+    tableName: ''
+    product:
+      name: Puppet-Enterprise
+      capiProviderName: puppet-enterprise
+      description: ''
+      category: Config Management
+      provider: Puppet

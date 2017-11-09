@@ -1,0 +1,77 @@
+var PuppetEnterpriseUnsignedCerts = Class.create();
+PuppetEnterpriseUnsignedCerts.prototype = Object.extendsObject(PuppetEnterpriseAPIBase, {
+	
+	initialize: function (parameters, headers) {
+		ms.log("## init of Unsigned Inventories");
+		this.logger = new PuppetEnterpriseLogger();
+		this.apiPath = "/api/certificates/nodes";
+		PuppetEnterpriseAPIBase.prototype.initialize.call(this, parameters, headers);
+	},
+	
+	
+	/**
+ 	* This method Discovers List of Unsigned Certificate Nodes at Puppet Enterprise upon Discover operation.
+ 	* updates CMDB tables data
+ 	*/
+	discoverUnsignedCert: function () {
+		this.logger.info("*** PUPPET UNSIGNED CERTIFICATE ***");
+		//var unsignedCerturl = puppetUrl + this.apiPath;
+		var unsignedCertPayload = [];
+		this.unsignedCertResp = [];
+		
+		try {
+			//Get Unsigned Certificate Node Lists
+			this.getUnsignedCertList(this.apiPath);
+			
+			for (var index = 0; index < this.unsignedCertResp.length; index++) {
+				if (this.unsignedCertResp[index].state == "requested") {
+					var unsignedCertDetails = {};
+						unsignedCertDetails['id'] = this.unsignedCertResp[index].id;
+						unsignedCertDetails['state'] = this.unsignedCertResp[index].state;
+						unsignedCertDetails['name'] = this.unsignedCertResp[index].name;
+						unsignedCertDetails['finger_print'] = this.unsignedCertResp[index].fingerprint;
+						
+						if("dnsAltNames" in this.unsignedCertResp[index]){
+							unsignedCertDetails['dns_alt_names'] = this.unsignedCertResp[index].dnsAltNames;
+						}
+						
+						unsignedCertPayload.push(unsignedCertDetails);
+					}
+				}
+				this.logger.info("### UnsignedCertificate Result : " + new JSON().encodeObject(unsignedCertPayload));
+				
+				var unsignedCertData = {};
+					unsignedCertData.unsigned_certs = unsignedCertPayload;
+					unsignedCertData.objectId = this.objectId;
+				return unsignedCertData;
+				} catch (exception) {
+					//duckking exception to main method
+					throw exception;
+				}
+				
+			},
+			
+			
+			/**
+ 			* This method gets List of Unsigned Certificate Node at Puppet Enterprise upon Discover operation.
+ 			* This method is invoked recursively, if number of Unsigned Certificate Node exceeds a page.
+ 			* This method is invoked in Discover Unsigned Certificate Node method
+ 			*/
+			getUnsignedCertList: function (unsignedCerturl) {
+				ms.log("### get unsigned certificate inventory List");
+				var unsignCerResp = this._httpGET(unsignedCerturl);
+				
+				for (var node in unsignCerResp.nodes) {
+					//this.logger.info("### Collect Lists : "+new JSON().encodeObject(unsignCer.nodes[node]));
+					this.unsignedCertResp.push(unsignCerResp.nodes[node]);
+				}
+				
+				if (unsignCerResp.next != null){
+					ms.log("### unsigned certificate--next-->"+unsignCerResp.next);
+					this.getUnsignedCertList(unsignCerResp.next);
+				}
+			},
+			
+			type: "PuppetEnterpriseUnsignedCerts"
+		});
+		

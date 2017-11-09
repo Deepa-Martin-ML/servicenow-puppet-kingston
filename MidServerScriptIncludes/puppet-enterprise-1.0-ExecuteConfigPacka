@@ -1,0 +1,3 @@
+var pj = new PuppetEnterpriseJob(this.parameters, this.headers);
+pj.launchJobTemplate();
+//pj.runAgentOnNode();

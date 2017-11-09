@@ -1,0 +1,55 @@
+var PuppetEnterpriseLogger = Class.create();
+PuppetEnterpriseLogger.prototype = {
+	StringUtil: Packages.com.glide.util.StringUtil,
+	
+	initialize: function() {
+		this.shouldLogDebug = ('true' == this._getMIDProperty('mid.cloudapi.debug', 'false'));
+	},
+
+	debug: function(msg) {
+		ms.log('*** DEBUG: (' + this.type + '): ' + msg);
+	},
+	
+	info: function(msg) {
+		ms.log('*** INFO: (' + this.type + '): ' + msg);
+	},	
+	
+	warn: function(msg) {
+		ms.log('*** WARNING: (' + this.type + '): ' + msg);
+	},
+	
+	error: function(msg) {
+		ms.log('*** ERROR: (' + this.type + '): ' + msg);
+	},
+	
+	/**
+	 * Generate a string from current date/time in the format YYYYMMDDHHMMSSMMM
+	 */
+	_getDateStr: function() {
+		var date = new Date();
+		var dateString = date.getFullYear() + 
+						('0' + (date.getMonth() + 1)).slice(-2) + 
+						('0' + date.getDate()).slice(-2) +  
+						('0' + date.getHours()).slice(-2) + 
+						('0' + date.getMinutes()).slice(-2) + 
+						('0' + date.getSeconds()).slice(-2) + 
+						('00' + date.getMilliseconds()).slice(-3);
+		
+		return dateString;
+	},	
+	
+	/**
+	 * Fetches a property from the MID server properties - if not found, returns
+	 * the given default
+	 */
+	_getMIDProperty: function(property, defaultValue) {
+		var value = ms.getConfigParameter(property);
+
+		if (JSUtil.nil(value))
+			value = defaultValue;
+		
+		return value;
+	},		
+	
+	type: 'PuppetEnterpriseLogger',
+};
